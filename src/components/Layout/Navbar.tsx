@@ -127,7 +127,7 @@ const Navbar = () => {
             display: "flex",
             justifyContent: "space-around",
             alignItems: "center",
-
+            padding: 1,
             position: "relative",
           }}
         >
@@ -136,8 +136,7 @@ const Navbar = () => {
             src={logo}
             alt="SulFire"
             sx={{
-              width: 150,
-              height: 40,
+              width: 200,
               left: 1,
               top: 1,
             }}
@@ -148,7 +147,7 @@ const Navbar = () => {
               alignItems: "center",
               gap: 4,
               maxHeight: 60,
-              padding: 1.5,
+              padding: 2,
             }}
           >
             <IconButton
