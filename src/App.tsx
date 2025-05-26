@@ -51,7 +51,7 @@ const theme = createTheme({
     },
   },
   typography: {
-    fontFamily: "Arial",
+    fontFamily: "Poppins, sans-serif",
     h1: {
       fontWeight: 700,
     },

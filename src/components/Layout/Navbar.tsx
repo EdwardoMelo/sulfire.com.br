@@ -35,8 +35,7 @@ const navActions = [
 
 const StyledAppBar = styled(AppBar)(
   ({ isTransparent }: { isTransparent: boolean }) => ({
-    // backgroundColor: isTransparent ? "transparent" : "black",
-    backgroundColor: 'black',
+    backgroundColor: 'white',
     position: "fixed",
     top: 0,
     zIndex: 30,
@@ -119,47 +118,16 @@ const Navbar = () => {
     </Box>
   );
 
-  useEffect(() => { 
-    const notInHome = location.pathname !== "/";
-    if(notInHome){ 
-      setIsTransparent(false);
-      return;
-    }
-    setIsTransparent(true);
-  }, [location])
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const heroSection = document.querySelector("#hero-section");
-      if (heroSection) {
-        const rect = heroSection.getBoundingClientRect();
-        console.log("rect:", rect.bottom)
-        const notInHome = location.pathname !== "/";
-        console.log('notInHome:', notInHome)
-        console.log('location.pathname:', location.pathname)
-        if(notInHome){ 
-          setIsTransparent(false);
-          return;
-        }
-        setIsTransparent(rect.bottom > 0); // Navbar is transparent when the hero section is in view
-      }
-    };
-
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [location]);
-
-
-
   return (
     <>
-      <StyledAppBar position="static" isTransparent={isTransparent} >
-        <CategoryNavbar />
-        <Container
+      <StyledAppBar position="static" isTransparent={isTransparent}>
+        <CategoryNavbar background={isTransparent ? "transparent" : "black"} />
+        <Box
           sx={{
             display: "flex",
-            justifyContent: "space-between",
-            padding: 1,
+            justifyContent: "space-around",
+            alignItems: "center",
+
             position: "relative",
           }}
         >
@@ -168,12 +136,21 @@ const Navbar = () => {
             src={logo}
             alt="SulFire"
             sx={{
-              width: 220,
+              width: 150,
+              height: 40,
               left: 1,
               top: 1,
             }}
           />
-          <Toolbar disableGutters sx={{ display: "flex", gap: 4 }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 4,
+              maxHeight: 60,
+              padding: 1.5,
+            }}
+          >
             <IconButton
               color="inherit"
               aria-label="open drawer"
@@ -185,9 +162,24 @@ const Navbar = () => {
             </IconButton>
 
             <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-              <NavButton to="/">Home</NavButton>
-              <NavButton to="/produtos">Produtos</NavButton>
-              <NavButton to="/servicos">Serviços</NavButton>
+              {[
+                { label: "Home", to: "/" },
+                { label: "Produtos", to: "/produtos" },
+                { label: "Serviços", to: "/servicos" },
+              ].map(({ label, to }) => (
+                <NavButton
+                  sx={{
+                    fontFamily: "Poppins",
+                    fontSize: "14px",
+                    fontWeight: "bold",
+                    color: "gray",
+                  }}
+                  to={to}
+                  key={to}
+                >
+                  {label}
+                </NavButton>
+              ))}
             </Box>
             <Box
               sx={{
@@ -207,7 +199,7 @@ const Navbar = () => {
                   gap={1}
                   key={action.label}
                   sx={{
-                    color: "white",
+                    color: "black",
                     "&:hover": {
                       marginLeft: "1rem",
                       color: "orange",
@@ -219,7 +211,7 @@ const Navbar = () => {
                     sx={{
                       width: 40,
                       height: 40,
-                      
+
                       bgcolor: "orange",
                       "&:hover": {
                         bgcolor: "black",
@@ -231,7 +223,16 @@ const Navbar = () => {
                   >
                     {action.icon}
                   </IconButton>
-                  <Typography>{action.label}</Typography>
+                  <Typography
+                    sx={{
+                      fontFamily: "Poppins",
+                      fontSize: "14px",
+                      fontWeight: "bold",
+                      color: "gray",
+                    }}
+                  >
+                    {action.label}
+                  </Typography>
                 </Stack>
               ))}
             </Box>
@@ -277,8 +278,8 @@ const Navbar = () => {
                 Login
               </Button>
             )}
-          </Toolbar>
-        </Container>
+          </Box>
+        </Box>
       </StyledAppBar>
       <Drawer
         variant="temporary"

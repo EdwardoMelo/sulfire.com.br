@@ -105,7 +105,7 @@ const ProductDetail = () => {
         justifyContent: "start",
         gap: 1,
         alignItems: "start",
-        padding: 2,
+        padding: 4,
       }}
     >
     

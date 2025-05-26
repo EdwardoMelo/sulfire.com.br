@@ -1,76 +1,75 @@
-
-import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import { 
-  Box, 
-  Button, 
-  Container, 
-  Typography, 
-  Grid, 
-  Card, 
-  CardContent, 
+import React from "react";
+import { Link as RouterLink } from "react-router-dom";
+import {
+  Box,
+  Button,
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardContent,
   CardMedia,
   Paper,
-  Divider
-} from '@mui/material';
-import { 
-  LocalFireDepartment, 
-  Security, 
-  Handshake, 
-  Lightbulb, 
+  Divider,
+} from "@mui/material";
+import {
+  LocalFireDepartment,
+  Security,
+  Handshake,
+  Lightbulb,
   Nature,
-  CheckCircle
-} from '@mui/icons-material';
-import { Stack, styled } from '@mui/system';
-import heroBanner from '../assets/hero-banner.jpg'
-import { motion } from 'framer-motion';
-import { orange } from '@mui/material/colors';
-import teamBanner from '../assets/team-banner.jpg'
-import valueBanner from '../assets/values.jpg';
+  CheckCircle,
+} from "@mui/icons-material";
+import { Stack, styled } from "@mui/system";
+import heroBanner from "../assets/hero-banner.jpg";
+import { motion } from "framer-motion";
+import { orange } from "@mui/material/colors";
+import teamBanner from "../assets/team-banner.jpg";
+import valueBanner from "../assets/values.jpg";
 import destaqueSprinkler from "../assets/destaque-sprinkler.jpg";
-import destaqueProtecao from '../assets/produtos/destaque-protecao.png';
-import destaqueSensor from '../assets/produtos/detaque-sensor.png';
+import destaqueProtecao from "../assets/produtos/destaque-protecao.png";
+import destaqueSensor from "../assets/produtos/detaque-sensor.png";
+import Services from "../components/sections/Services";
+import Products from "./Products";
 
 const values = [
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Segurança em primeiro lugar",
     description:
       "Priorizamos a segurança em todas as nossas soluções e procedimentos.",
   },
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Ética e transparência",
     description:
       "Conduzimos nossos negócios com honestidade e clareza em todas as relações.",
   },
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Comprometimento com o cliente",
     description:
       "Dedicação total à satisfação e segurança dos nossos clientes.",
   },
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Inovação constante",
     description:
       "Buscamos sempre as melhores e mais modernas soluções do mercado.",
   },
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Respeito às normas",
     description:
       "Seguimos rigorosamente todas as normas e regulamentações técnicas.",
   },
   {
-    icon: <CheckCircle sx={{ color: "orange", mr: 2, fontSize: "2rem" }} />,
+    icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
     title: "Respeito ao meio ambiente",
     description:
       "Comprometimento com práticas sustentáveis e responsabilidade ambiental.",
   },
 ];
-
-
 
 const featuredProducts = [
   {
@@ -94,57 +93,92 @@ const featuredProducts = [
 ];
 
 const HeroBanner = styled(Box)({
-  minHeight: '100vh',
-  position: 'relative',
-  backgroundSize: 'cover',
-  backgroundPosition: 'center',
-  color: 'white',
-  padding: '100px 50px',
-  textAlign: 'center',
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  alignItems: 'start'
+  minHeight: "80vh",
+  marginTop: '10vh',
+  width: '100%',
+  position: "relative",
+  backgroundSize: "cover",
+  backgroundPosition: "center",
+  color: "white",
+  padding: "150px 50px",
+  textAlign: "center",
+  display: "flex",
+  flexDirection: "column",
+  justifyContent: "center",
+  alignItems: "start",
 });
 
 const SectionTitle = styled(Typography)({
-  position: 'relative',
-  marginBottom: '40px',
-  '&::after': {
+  position: "relative",
+  marginBottom: "40px",
+  "&::after": {
     content: '""',
-    position: 'absolute',
-    bottom: '-15px',
+    position: "absolute",
+    bottom: "-15px",
     left: 0,
-    width: '80px',
-    height: '4px',
-    backgroundColor: 'orange',
+    width: "80px",
+    height: "4px",
+    backgroundColor: "orange",
   },
 });
 
 const FeatureCard = styled(Card)({
-  height: '100%',
-  transition: 'transform 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-10px)',
-    boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-    border: '1px solid lightgray'
+  height: "100%",
+  transition: "transform 0.3s ease",
+  borderRadius: 0,
+  "&:hover": {
+    transform: "translateY(-10px)",
+    boxShadow: "0 10px 20px rgba(0,0,0,0.2)",
+    border: "1px solid lightgray",
   },
-  cursor: 'pointer'
+  cursor: "pointer",
 });
 
 const FeatureIcon = styled(Box)({
-  color: 'orange',
-  fontSize: '3rem',
-  marginBottom: '1rem',
+  color: "orange",
+  fontSize: "3rem",
+  marginBottom: "1rem",
 });
 
 const ValueCard = styled(Box)({
-  display: 'flex',
-  alignItems: 'center',
-  marginBottom: '1rem',
-  borderRadius: '8px',
-  padding: '16px',
+  display: "flex",
+  alignItems: "center",
+  marginBottom: "1rem",
+  borderRadius: "8px",
+  padding: "16px",
 });
+
+const HeaderBackground = ( ) => { 
+  return (
+    <>
+      <Box
+        component="img"
+        src={heroBanner}
+        alt="Hero Image"
+        sx={{
+          position: "absolute",
+          top: 10,
+          left: 0,
+          objectFit: "cover",
+          width: "100%",
+          height: "100%",
+          zIndex: 10,
+        }}
+      ></Box>
+      <Box
+        sx={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          background: "rgba(0, 0, 50, 0.7)", // Linear gradient with transparency
+          zIndex: 15,
+        }}
+      ></Box>
+    </>
+  );
+}
 
 const Home = () => {
   // Animation variants
@@ -161,22 +195,38 @@ const Home = () => {
 
   const heroItemVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const sectionTitleVariants = {
     hidden: { opacity: 0, x: -50 },
-    visible: { opacity: 1, x: 0, transition: { duration: 0.7, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      x: 0,
+      transition: { duration: 0.7, ease: "easeOut" },
+    },
   };
 
   const contentFadeInUpVariants = {
     hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.6, ease: "easeOut" },
+    },
   };
 
   const imageScaleInVariants = {
     hidden: { opacity: 0, scale: 0.9 },
-    visible: { opacity: 1, scale: 1, transition: { duration: 0.8, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
   };
 
   const listStaggerContainerVariants = {
@@ -186,138 +236,161 @@ const Home = () => {
 
   const listItemFadeInUpVariants = {
     hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: "easeOut" } },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.5, ease: "easeOut" },
+    },
   };
 
   return (
-    <Box>
+    <Box
+      sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}
+    >
       {/* Hero Section */}
       <HeroBanner id="hero-section">
-        <Box
-          component="img"
-          src={heroBanner}
-          alt="Hero Image"
-          sx={{
-            position: "absolute",
-            top: 10,
-            left: 0,
-            objectFit: "cover",
-            width: "100%",
-            height: "100%",
-            zIndex: 10,
-          }}
-        ></Box>
+        <HeaderBackground />
         <Box
           sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "rgba(0, 0, 50, 0.7)", // Linear gradient with transparency
-            zIndex: 15,
+            zIndex: 20,
+            color: "white",
+            width: {
+              xs: "100%",
+              sm: "80%",
+              md: "50%",
+            },
+            position: "relative",
+            padding: 1,
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "end",
           }}
-        ></Box>
-
-        <motion.div
-          variants={heroContainerVariants}
-          initial="hidden"
-          animate="visible"
         >
           <Box
             sx={{
-              zIndex: 20,
-              color: "white",
               width: {
                 xs: "100%",
                 sm: "80%",
-                md: "50%",
+                md: "70%",
               },
-              position: "relative",
-              padding: 1,
+
               display: "flex",
               flexDirection: "column",
               alignItems: "start",
             }}
           >
-            <motion.div variants={heroItemVariants}>
-              <Typography
-                variant="h2"
-                sx={{ fontWeight: 550, mb: 2, textAlign: "left" }}
-              >
-                Sua proteção Confiável Contra{" "}
-                <motion.span
-                  style={{ display: "inline-block" }}
-                  variants={heroItemVariants}
+            <motion.div
+              variants={heroContainerVariants}
+              initial="hidden"
+              animate="visible"
+            >
+              <motion.div variants={heroItemVariants}>
+                <Typography
+                  variant="h2"
+                  sx={{
+                    fontWeight: 700,
+                    mb: 2,
+                    textAlign: "left",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
                 >
-                  <span style={{ color: "orange" }}>Incêndio</span>
-                </motion.span>
-              </Typography>
-            </motion.div>
-            <motion.div variants={heroItemVariants}>
-              <Typography fontSize="1.8rem" sx={{ mb: 4, textAlign: "left" }}>
-                Equipamentos e Serviços com excelência em prevenção e combate a
-                incêndios
-              </Typography>
-            </motion.div>
-            <motion.div variants={heroItemVariants}>
-              <Button
-                component={RouterLink}
-                size="large"
-                variant="contained"
-                to="/produtos"
-                sx={{
-                  "&:hover": { bgcolor: "black", color: "orange", scale: 1.1 },
-                  transition: "all 0.3s ease-in-out",
-                  color: "white",
-                }}
+                  Sua proteção Confiável Contra{" "}
+                  <motion.span
+                    style={{ display: "inline-block" }}
+                    variants={heroItemVariants}
+                  >
+                    <span style={{ color: "orange" }}>Incêndio</span>
+                  </motion.span>
+                </Typography>
+              </motion.div>
+              <motion.div variants={heroItemVariants}>
+                <Typography fontSize="1.5rem" sx={{ mb: 4, textAlign: "left" }}>
+                  Equipamentos e serviços com excelência em prevenção e combate
+                  a incêndios
+                </Typography>
+              </motion.div>
+              <motion.div
+                style={{ width: "fit-content" }}
+                variants={heroItemVariants}
               >
-                Conheça Nossos Produtos
-              </Button>
+                <Button
+                  component={RouterLink}
+                  size="large"
+                  variant="contained"
+                  to="/produtos"
+                  sx={{
+                    "&:hover": {
+                      bgcolor: "black",
+                      color: "orange",
+                      scale: 1.1,
+                    },
+                    transition: "all 0.3s ease-in-out",
+                    color: "white",
+                    fontFamily: "Poppins, sans-serif",
+                  }}
+                >
+                  Conheça Nossos Produtos
+                </Button>
+              </motion.div>
             </motion.div>
           </Box>
-        </motion.div>
+        </Box>
       </HeroBanner>
-
+      {/* Products Section */}
+      <Box sx={{ width: '95%'}}>
+        <Products />
+      </Box>
       {/* Sobre Nós Section */}
-      <Box sx={{ py: 8 }}>
+      <Box sx={{ py: 8, minBlockSize: "80vh" }}>
         <Container>
           <Grid container spacing={6} alignItems="center">
             <Grid item xs={12} md={6}>
               <motion.div
-                variants={sectionTitleVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.3 }}
-              >
-                <SectionTitle variant="h4">Sobre a SulFire</SectionTitle>
-              </motion.div>
-              <motion.div
                 variants={contentFadeInUpVariants}
                 initial="hidden"
                 whileInView="visible"
                 viewport={{ once: true, amount: 0.2 }}
               >
-                <Typography variant="body1" paragraph>
-                  A SulFire Sistemas Preventivos LTDA é uma empresa
-                  especializada em soluções completas para prevenção e combate a
-                  incêndios localiza em São Leopoldo - RS, com experiência no
-                  mercado, oferecendo produtos e serviços da mais alta
-                  qualidade.
-                </Typography>
-              </motion.div>
-              <motion.div
-                variants={contentFadeInUpVariants}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <Typography variant="body1" paragraph>
-                  Nossa missão é proteger vidas e patrimônios através de
-                  soluções eficazes e inovadoras de prevenção e combate a
-                  incêndios, seguindo rigorosamente as normas técnicas e
-                  regulamentações do setor.
-                </Typography>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: 2,
+                    marginBottom: 4,
+                  }}
+                >
+                  <Typography
+                    variant="overline"
+                    color="orange"
+                    sx={{ fontWeight: 600 }}
+                  >
+                    QUEM SOMOS
+                  </Typography>
+                  <Typography
+                    variant="h3"
+                    sx={{
+                      fontWeight: 700,
+                      mb: 2,
+                      mt: 1,
+                      fontFamily: "Poppins, sans-serif",
+                    }}
+                  >
+                    Qualidade e segurança, é na SulFire
+                  </Typography>
+                  <Typography
+                    variant="body1"
+                    sx={{ color: "#3e4a61" }}
+                    paragraph
+                  >
+                    A SulFire é uma empresa especializada em soluções de
+                    proteção contra incêndio e comercialização de produtos para
+                    combate ao fogo. Estabelecida no Rio Grande do Sul há mais
+                    de 10 anos, temos como principal pilar de trabalho o
+                    atendimento profissional e transparente, o que nos tornou
+                    referência no mercado de equipamentos contra incêndio na
+                    região Sul.
+                  </Typography>
+                </Box>
               </motion.div>
               <motion.div
                 variants={contentFadeInUpVariants}
@@ -338,6 +411,7 @@ const Home = () => {
                     },
                     transition: "all 0.3s ease-in-out",
                     color: "white",
+                    fontFamily: "Poppins, sans-serif",
                   }}
                 >
                   Conheça Nossos Serviços
@@ -357,7 +431,7 @@ const Home = () => {
                   alt="Equipe SulFire"
                   sx={{
                     width: "100%",
-                    borderRadius: 2,
+                    borderRadius: 20,
                     boxShadow: 3,
                   }}
                 />
@@ -374,6 +448,7 @@ const Home = () => {
           py: 8,
           position: "relative",
           display: "flex",
+          width: "100%",
         }}
       >
         <Box
@@ -388,7 +463,8 @@ const Home = () => {
             width: "100%",
             height: "100%",
             zIndex: 0,
-            opacity: 1,
+            opacity: 0.5, // Slightly transparent background image
+            filter: "grayScale(0.8)", // Optional: grayscale effect
           }}
         />
         <Box
@@ -413,7 +489,7 @@ const Home = () => {
             <Typography
               variant="h4"
               textAlign="center"
-              sx={{ mb: 6, color: "orange" }}
+              sx={{ mb: 6, color: "white" }}
             >
               Nossos Valores
             </Typography>
@@ -433,17 +509,13 @@ const Home = () => {
                       {value.icon}
                       <Box>
                         <Typography
-                          color="orange"
                           fontWeight="bold"
                           variant="h6"
+                          sx={{ color: "#f2f2f2" }}
                         >
                           {value.title}
                         </Typography>
-                        <Typography
-                          variant="body2"
-                          color="white"
-                          fontWeight="bold"
-                        >
+                        <Typography variant="body2" color="white">
                           {value.description}
                         </Typography>
                       </Box>
@@ -456,6 +528,8 @@ const Home = () => {
         </Container>
       </Box>
 
+      {/* Serviços Section */}
+      <Services />
       {/* Produtos Destacados */}
       <Box sx={{ py: 8 }}>
         <Container>
@@ -465,7 +539,17 @@ const Home = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.3 }}
           >
-            <SectionTitle variant="h4" sx={{ mb: 6 }}>
+            <SectionTitle
+              variant="h4"
+              sx={{
+                fontWeight: 700,
+                mb: 2,
+                mt: 1,
+                fontFamily: "Poppins, sans-serif",
+                color: "#393e46",
+                marginBottom: "2rem",
+              }}
+            >
               Destaques
             </SectionTitle>
           </motion.div>
@@ -487,10 +571,33 @@ const Home = () => {
                         alt={product.title}
                       />
                       <CardContent>
-                        <Typography gutterBottom variant="h6" component="div">
+                        <Typography
+                          sx={{
+                            fontWeight: 700,
+                            mb: 2,
+                            mt: 1,
+                            fontFamily: "Poppins, sans-serif",
+                            color: "#393e46",
+                            marginBottom: "2rem",
+                          }}
+                          gutterBottom
+                          variant="h6"
+                          component="div"
+                        >
                           {product.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            fontWeight: 600,
+                            mb: 2,
+                            mt: 1,
+                            fontFamily: "Poppins, sans-serif",
+                            color: "gray",
+                            marginBottom: "2rem",
+                          }}
+                        >
                           {product.description}
                         </Typography>
                       </CardContent>
@@ -529,6 +636,7 @@ const Home = () => {
       <Box
         sx={{
           bgcolor: "black",
+          width: "100%",
           color: "white",
           py: 8,
           backgroundImage:
@@ -537,7 +645,7 @@ const Home = () => {
           backgroundPosition: "center",
         }}
       >
-        <Container>
+        <Box>
           <Grid container justifyContent="center">
             <Grid item xs={12} spacing={2} md={8} textAlign="center">
               <motion.div
@@ -609,7 +717,7 @@ const Home = () => {
               </motion.div>
             </Grid>
           </Grid>
-        </Container>
+        </Box>
       </Box>
     </Box>
   );

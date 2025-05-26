@@ -6,34 +6,32 @@ import { blue } from '@mui/material/colors';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-
-const CategoryNavbar = () => {
+interface props { 
+  background?: string;
+}
+const CategoryNavbar = ({ background }: props) => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
   const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
   const location = useLocation();
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [isTransparent, setIsTransparent] = useState(true);
 
-
-  
   const SCROLL_AMOUNT = 250;
 
   const handleScroll = (direction: "left" | "right") => {
     console.log("handleScroll", direction);
     if (scrollContainerRef.current) {
       const currentScroll = scrollContainerRef.current.scrollLeft;
-      const newScroll = direction === "left"
+      const newScroll =
+        direction === "left"
           ? currentScroll - SCROLL_AMOUNT
           : currentScroll + SCROLL_AMOUNT;
-
 
       scrollContainerRef.current.scrollTo({
         left: newScroll,
         behavior: "smooth",
       });
-     
     }
   };
   const arrowButtonStyle = {
@@ -41,9 +39,9 @@ const CategoryNavbar = () => {
     "&:hover": {
       backgroundColor: "rgba(255, 255, 255, 0.2)",
     },
-  
+
     "&.Mui-disabled": {
-      color: "rgba(255, 165, 0, 0.3)", 
+      color: "rgba(255, 165, 0, 0.3)",
     },
     zIndex: 2,
     height: "36px",
@@ -66,20 +64,12 @@ const CategoryNavbar = () => {
     fetchCategorias();
   }, []);
 
-  useEffect(() => {
-    const notInHome = location.pathname !== "/";
-    if (notInHome) {
-      setIsTransparent(false);
-      return;
-    }
-    setIsTransparent(true);
-  }, [location]);
-
   const buttonStyle = {
     "&:hover": {
       color: "orange",
       fontWeight: "bold",
     },
+    color: 'black',
     flexGrow: 1,
     flexShrink: 0,
     borderRadius: 2,
@@ -91,12 +81,11 @@ const CategoryNavbar = () => {
       sx={{
         display: "flex",
         gap: 2,
-        bgcolor: "white",
+        backgroundColor: "#393e46",
         alignItems: "center",
         maxHeight: "40px",
         padding: 2,
         justifyContent: "center",
-        backgroundColor: "black",
         width: "100%",
         margin: "0 auto",
       }}
@@ -117,15 +106,14 @@ const CategoryNavbar = () => {
       ) : (
         <>
           <Box
-          
             sx={{
               display: "flex",
               position: "relative",
               gap: "2rem",
               height: "100%",
-              width: { 
-                xs: '80%',
-                sm: '90%',
+              width: {
+                xs: "80%",
+                sm: "90%",
               },
               justifyContent: "center",
             }}
@@ -147,8 +135,9 @@ const CategoryNavbar = () => {
                   sx={{
                     ...buttonStyle,
                     color: selectedId === String(cat.id) ? "orange" : "white",
-                    fontWeight:
-                      selectedId === String(cat.id) ? "bold" : "normal",
+                    fontWeight: selectedId === String(cat.id) ? "bold" : "normal",
+                    letterSpacing: "1px",
+                    fontFamily: "'Poppins', sans-serif",
                   }}
                   onMouseEnter={() => setIsHovered(true)}
                   onMouseLeave={() => setIsHovered(false)}
