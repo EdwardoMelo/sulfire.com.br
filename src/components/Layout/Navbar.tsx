@@ -272,7 +272,7 @@ const Navbar = () => {
                   "&:hover": {
                     bgcolor: "darkorange",
                   },
-                  color: "white",
+                  color: "black",
                 }}
               >
                 Login
