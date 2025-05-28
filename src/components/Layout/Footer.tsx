@@ -4,7 +4,8 @@ import { Box, Container, Grid, Typography, Link, IconButton } from '@mui/materia
 import { Facebook, Instagram, LinkedIn, WhatsApp, Email, Phone, LocationOn } from '@mui/icons-material';
 import { styled } from '@mui/system';
 import { Categoria } from '@/models/Categoria';
-import logo from '../../assets/logo1.png'
+import logo from '../../assets/logoFooter.png'
+
 const FooterContainer = styled(Box)({
   backgroundColor: "#3e4a61",
   borderTop: '1px solid white',

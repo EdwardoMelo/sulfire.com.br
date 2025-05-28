@@ -89,7 +89,7 @@ const PreNavbar = ({ background }: props) => {
             }}
             disableRipple
           >
-            SulFire - Sistemas Preventivos
+            SulFire - Distribuidora e Serviços
           </Button>
         </Grid>
 
@@ -178,7 +178,9 @@ const PreNavbar = ({ background }: props) => {
             {user ? (
               <>
                 <IconButton onClick={handleMenu} color="inherit">
-                  <Avatar sx={{ width: 32, height: 32, bgcolor: "primary.main" }}>
+                  <Avatar
+                    sx={{ width: 32, height: 32, bgcolor: "primary.main" }}
+                  >
                     {user?.nome?.charAt(0)?.toUpperCase()}
                   </Avatar>
                 </IconButton>

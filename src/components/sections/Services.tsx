@@ -84,21 +84,6 @@ const services = [
     ],
   },
   {
-    id: 3,
-    title: "Manutenção de Extintores",
-    description:
-      "Serviço completo de manutenção, recarga e teste hidrostático em extintores de incêndio, garantindo sua eficiência em situações de emergência.",
-    icon: <Build fontSize="large" />,
-    image: manutencao,
-    features: [
-      "Recarga de extintores",
-      "Teste hidrostático",
-      "Manutenção preventiva",
-      "Substituição de peças",
-      "Lacração e garantia",
-    ],
-  },
-  {
     id: 4,
     title: "Treinamentos",
     description:
@@ -115,9 +100,8 @@ const services = [
   },
   {
     id: 5,
-    title: "Instalações e Inspeções",
-    description:
-      "Realizamos instalações completas de sistemas preventivos, além de inspeções periódicas para garantir a conformidade e funcionamento dos equipamentos.",
+    title: "Contratos",
+    description: "Gestão de equipamentos contra incêndio",
     icon: <Construction fontSize="large" />,
     image: instalacao,
     features: [
