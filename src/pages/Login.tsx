@@ -224,9 +224,9 @@ const Login = () => {
               mt: 3,
               mb: 2,
               py: 1.5,
-              bgcolor: "orange",
+              bgcolor: "primary.main",
               "&:hover": {
-                bgcolor: "darkorange",
+                bgcolor: "primary.main",
               },
             }}
             disabled={loading}
@@ -249,10 +249,10 @@ const Login = () => {
             variant="outlined"
             onClick={handleToggleForm}
             sx={{
-              borderColor: "orange",
-              color: "orange",
+              borderColor: "primary.main",
+              color: "primary.main",
               "&:hover": {
-                borderColor: "darkorange",
+                borderColor: "primary.main",
                 bgcolor: "rgba(255, 165, 0, 0.1)",
               },
             }}

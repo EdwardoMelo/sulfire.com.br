@@ -139,7 +139,7 @@ const AdminCategories = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: "orange", mr: 1 }} />
+                    <SearchIcon sx={{ color: "primary.main", mr: 1 }} />
                   </InputAdornment>
                 ),
                 style: { background: "#fff" },
@@ -151,8 +151,8 @@ const AdminCategories = () => {
               startIcon={<Add />}
               onClick={() => handleOpen()}
               sx={{
-                bgcolor: "orange",
-                "&:hover": { bgcolor: "darkorange" },
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.main" },
               }}
             >
               Nova Categoria
@@ -162,7 +162,7 @@ const AdminCategories = () => {
 
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
-            <CircularProgress sx={{ color: "orange" }} />
+            <CircularProgress sx={{ color: "primary.main" }} />
           </Box>
         ) : error ? (
           <Alert severity="error" sx={{ my: 2 }}>

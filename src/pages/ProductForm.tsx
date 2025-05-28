@@ -270,7 +270,7 @@ const ProductForm = () => {
           minHeight: "60vh",
         }}
       >
-        <CircularProgress sx={{ color: "orange" }} />
+        <CircularProgress sx={{ color: "primary.main" }} />
       </Container>
     );
   }
@@ -425,7 +425,7 @@ const ProductForm = () => {
               onDrop={handleDrop}
               onDragOver={handleDragOver}
               sx={{
-                border: "2px dashed orange",
+                border: "2px dashed primary.main",
                 borderRadius: 2,
                 p: 2,
                 textAlign: "center",
@@ -434,12 +434,12 @@ const ProductForm = () => {
                 minHeight: 180,
                 position: "relative",
                 transition: "border-color 0.2s",
-                "&:hover": { borderColor: "darkorange" },
+                "&:hover": { borderColor: "primary.main" },
               }}
               onClick={() => fileInputRef.current?.click()}
             >
               {loading ? (
-                <CircularProgress sx={{color: 'orange'}}/>
+                <CircularProgress sx={{color: 'primary.main'}}/>
               ) : (
                 <Box>
                   <input
@@ -495,8 +495,8 @@ const ProductForm = () => {
                 variant="contained"
                 disabled={loading}
                 sx={{
-                  bgcolor: "orange",
-                  "&:hover": { bgcolor: "darkorange" },
+                  bgcolor: "primary.main",
+                  "&:hover": { bgcolor: "primary.main" },
                   color: "white",
                   textTransform: "uppercase",
                   py: 1.5,
@@ -512,8 +512,8 @@ const ProductForm = () => {
                 variant="contained"
                 disabled={loading}
                 sx={{
-                  bgcolor: "orange",
-                  "&:hover": { bgcolor: "darkorange" },
+                  bgcolor: "primary.main",
+                  "&:hover": { bgcolor: "primary.main" },
                   color: "white",
                   textTransform: "uppercase",
                   py: 1.5,

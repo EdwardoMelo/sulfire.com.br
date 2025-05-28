@@ -31,7 +31,6 @@ import AddIcon from "@mui/icons-material/Add";
 import { motion } from 'framer-motion';
 
 const ProductCard = styled(Card)(({ theme }) => ({
-  height: 500,
   cursor: "pointer",
   width: 300,
   display: "flex",
@@ -68,7 +67,7 @@ const ProductContent = styled(CardContent)(({ theme }) => ({
 }));
 
 const StyledChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: "orange",
+  backgroundColor: "primary.main",
   color: "white",
   margin: "0 4px 4px 0",
   fontSize: 12,
@@ -139,7 +138,6 @@ const Products = () => {
   const navigateToProduct = (id: number) => {
     navigate(`/produtos/${id}`);
   };
-
   const handleCloseSnackbar = () => {
     setSnackbarOpen(false);
   };
@@ -198,6 +196,14 @@ const Products = () => {
     }
   }, [searchParams]);
 
+  //useEffect que extrai o search da url e colcoa no searchTerm
+  useEffect(() => {
+    const search = searchParams.get("search");
+    if (search) {
+      setSearchTerm(search);
+    }
+  }, []);
+
   return (
     <motion.div initial="hidden" animate="visible" variants={fadeIn}>
       <Box
@@ -205,7 +211,6 @@ const Products = () => {
           py: { xs: 2, md: 6 },
           px: { xs: 2, md: 4 },
           minHeight: "80vh",
-          marginTop: { xs: "12vh", md: "10vh" },
           width: { xs: "98%", sm: "95%", md: "90%" },
           mx: "auto",
         }}
@@ -221,7 +226,7 @@ const Products = () => {
               mb: 2,
               textAlign: { xs: "center", md: "left" },
               fontFamily: "Poppins, sans-serif",
-              color: "darkorange",
+              color: "primary.main",
               fontSize: { xs: 28, sm: 32, md: 38 },
             }}
           >
@@ -270,9 +275,9 @@ const Products = () => {
                     <IconButton
                       onClick={() => navigate("/produtos/new")}
                       sx={{
-                        backgroundColor: "darkorange",
+                        backgroundColor: "primary.main",
                         "&:hover": {
-                          backgroundColor: "orange",
+                          backgroundColor: "primary.main",
                           scale: 1.2,
                         },
                         transition: "all 0.3s ease-in-out",
@@ -306,9 +311,9 @@ const Products = () => {
                 <IconButton
                   onClick={() => navigate("/categorias/new")}
                   sx={{
-                    backgroundColor: "darkorange",
+                    backgroundColor: "primary.main",
                     "&:hover": {
-                      backgroundColor: "orange",
+                      backgroundColor: "primary.main",
                       scale: 1.2,
                     },
                     transition: "all 0.3s ease-in-out",
@@ -339,7 +344,7 @@ const Products = () => {
                 },
               }}
               TabIndicatorProps={{
-                style: { backgroundColor: "orange" },
+                style: { backgroundColor: "primary.main" },
               }}
             >
               <Tab
@@ -347,7 +352,7 @@ const Products = () => {
                 value={null}
                 sx={{
                   "&.Mui-selected": {
-                    color: "orange",
+                    color: "primary.main",
                     fontWeight: "bold",
                   },
                   fontSize: { xs: 12, sm: 16 },
@@ -366,12 +371,12 @@ const Products = () => {
                     textTransform: "none",
                     fontWeight: "bold",
                     "&.Mui-selected": {
-                      color: "orange",
+                      color: "primary.main",
                       fontWeight: "bold",
                       transition: "all 0.3s ease-in-out",
                     },
                     "&:hover": {
-                      color: "darkorange",
+                      color: "primary.main",
                       fontWeight: "bold",
                       zIndex: 30,
                     },
@@ -386,7 +391,7 @@ const Products = () => {
         {/* Products Grid */}
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
-            <CircularProgress sx={{ color: "orange" }} />
+            <CircularProgress sx={{ color: "primary.main" }} />
           </Box>
         ) : error ? (
           <Alert severity="error" sx={{ my: 4 }}>
@@ -484,9 +489,9 @@ const Products = () => {
                           fullWidth
                           onClick={() => navigateToProduct(produto.id)}
                           sx={{
-                            bgcolor: "darkorange",
+                            bgcolor: "primary.main",
                             "&:hover": {
-                              backgroundColor: "orange",
+                              backgroundColor: "primary.main",
                               scale: 1.1,
                             },
                             maxWidth: 200,
@@ -517,7 +522,7 @@ const Products = () => {
               color="primary"
               sx={{
                 "& .MuiPaginationItem-root.Mui-selected": {
-                  bgcolor: "orange",
+                  bgcolor: "primary.main",
                   color: "white",
                 },
                 fontSize: { xs: 12, sm: 14 },

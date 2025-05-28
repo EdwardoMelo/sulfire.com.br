@@ -165,7 +165,7 @@ const AdminProducts = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               InputProps={{
-                startAdornment: <SearchIcon sx={{ color: "orange", mr: 1 }} />,
+                startAdornment: <SearchIcon sx={{ color: "primary.main", mr: 1 }} />,
                 style: { background: "#fff" },
               }}
               sx={{ minWidth: 220 }}
@@ -175,9 +175,9 @@ const AdminProducts = () => {
               startIcon={<Add />}
               onClick={() => handleOpen()}
               sx={{
-                bgcolor: "orange",
+                bgcolor: "primary.main",
                 "&:hover": {
-                  bgcolor: "darkorange",
+                  bgcolor: "primary.main",
                 },
               }}
             >
@@ -188,7 +188,7 @@ const AdminProducts = () => {
 
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
-            <CircularProgress sx={{ color: "orange" }} />
+            <CircularProgress sx={{ color: "primary.main" }} />
           </Box>
         ) : error ? (
           <Alert severity="error" sx={{ my: 2 }}>

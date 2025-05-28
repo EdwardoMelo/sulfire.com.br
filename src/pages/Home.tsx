@@ -23,7 +23,6 @@ import {
 import { Stack, styled } from "@mui/system";
 import heroBanner from "../assets/hero-banner.jpg";
 import { motion } from "framer-motion";
-import { orange } from "@mui/material/colors";
 import teamBanner from "../assets/team-banner.jpg";
 import valueBanner from "../assets/values.jpg";
 import destaqueSprinkler from "../assets/destaque-sprinkler.jpg";
@@ -31,7 +30,7 @@ import destaqueProtecao from "../assets/produtos/destaque-protecao.png";
 import destaqueSensor from "../assets/produtos/detaque-sensor.png";
 import Services from "../components/sections/Services";
 import Products from "./Products";
-
+import helpBanner from '../assets/help-banner.jpg'
 const values = [
   {
     icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
@@ -86,15 +85,13 @@ const featuredProducts = [
   },
   {
     image: destaqueProtecao,
-    title: "Equipamentos de Proteção",
+    title: "Equipamentos de infraestrutura",
     description:
-      "EPIs completos para segurança no trabalho e prevenção de acidentes.",
+      "Tubulações, conexões, suportes e acessórios essenciais para sistemas de proteção contra incêndio.",
   },
 ];
 
 const HeroBanner = styled(Box)({
-  minHeight: "80vh",
-  marginTop: '10vh',
   width: '100%',
   position: "relative",
   backgroundSize: "cover",
@@ -118,7 +115,7 @@ const SectionTitle = styled(Typography)({
     left: 0,
     width: "80px",
     height: "4px",
-    backgroundColor: "orange",
+    backgroundColor: "primary.main",
   },
 });
 
@@ -135,7 +132,7 @@ const FeatureCard = styled(Card)({
 });
 
 const FeatureIcon = styled(Box)({
-  color: "orange",
+  color: "primary.main",
   fontSize: "3rem",
   marginBottom: "1rem",
 });
@@ -157,7 +154,7 @@ const HeaderBackground = ( ) => {
         alt="Hero Image"
         sx={{
           position: "absolute",
-          top: 10,
+          top: 0,
           left: 0,
           objectFit: "cover",
           width: "100%",
@@ -270,8 +267,8 @@ const Home = () => {
             sx={{
               width: {
                 xs: "100%",
-                sm: "80%",
-                md: "70%",
+                sm: "90%",
+                md: "80%",
               },
 
               display: "flex",
@@ -286,8 +283,8 @@ const Home = () => {
             >
               <motion.div variants={heroItemVariants}>
                 <Typography
-                  variant="h2"
                   sx={{
+                    fontSize: "2.5rem",
                     fontWeight: 700,
                     mb: 2,
                     textAlign: "left",
@@ -299,7 +296,7 @@ const Home = () => {
                     style={{ display: "inline-block" }}
                     variants={heroItemVariants}
                   >
-                    <span style={{ color: "orange" }}>Incêndio</span>
+                    <span style={{ color: "primary.main" }}>Incêndio</span>
                   </motion.span>
                 </Typography>
               </motion.div>
@@ -321,7 +318,7 @@ const Home = () => {
                   sx={{
                     "&:hover": {
                       bgcolor: "black",
-                      color: "orange",
+                      color: "primary.main",
                       scale: 1.1,
                     },
                     transition: "all 0.3s ease-in-out",
@@ -337,7 +334,7 @@ const Home = () => {
         </Box>
       </HeroBanner>
       {/* Products Section */}
-      <Box sx={{ width: '95%'}}>
+      <Box sx={{ width: "95%" }}>
         <Products />
       </Box>
       {/* Sobre Nós Section */}
@@ -361,7 +358,7 @@ const Home = () => {
                 >
                   <Typography
                     variant="overline"
-                    color="orange"
+                    color="primary.main"
                     sx={{ fontWeight: 600 }}
                   >
                     QUEM SOMOS
@@ -403,10 +400,10 @@ const Home = () => {
                   component={RouterLink}
                   to="/servicos"
                   sx={{
-                    backgroundColor: "orange",
+                    backgroundColor: "primary.main",
                     "&:hover": {
                       bgcolor: "black",
-                      color: "orange",
+                      color: "primary.main",
                       scale: 1.1,
                     },
                     transition: "all 0.3s ease-in-out",
@@ -620,7 +617,7 @@ const Home = () => {
                 component={RouterLink}
                 to="/produtos"
                 sx={{
-                  "&:hover": { bgcolor: "black", color: "orange", scale: 1.1 },
+                  "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
                   transition: "all 0.3s ease-in-out",
                   color: "white",
                 }}
@@ -635,17 +632,43 @@ const Home = () => {
       {/* CTA Section */}
       <Box
         sx={{
-          bgcolor: "black",
           width: "100%",
           color: "white",
           py: 8,
-          backgroundImage:
-            "linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url(/images/cta-background.jpg)",
           backgroundSize: "cover",
           backgroundPosition: "center",
+          position: "relative",
         }}
       >
-        <Box>
+        <Box
+          component="img"
+          src={helpBanner}
+          alt="Precisa de Ajuda?"
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            zIndex: 0,
+            opacity: 0.7,
+          }}
+        />
+        <Box
+          sx={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            objectFit: "cover",
+            width: "100%",
+            height: "100%",
+            zIndex: 1,
+            background: "rgba(0, 0, 0, 0.7)",
+            opacity: 1,
+          }}
+        />
+        <Box sx={{ position: "relative", zIndex: 2 }}>
           <Grid container justifyContent="center">
             <Grid item xs={12} spacing={2} md={8} textAlign="center">
               <motion.div
@@ -690,7 +713,7 @@ const Home = () => {
                     sx={{
                       "&:hover": {
                         bgcolor: "black",
-                        color: "orange",
+                        color: "primary.main",
                         scale: 1.1,
                       },
                       transition: "all 0.3s ease-in-out",
@@ -706,8 +729,8 @@ const Home = () => {
                       color: "white",
                       borderColor: "white",
                       "&:hover": {
-                        borderColor: "orange",
-                        color: "orange",
+                        borderColor: "primary.main",
+                        color: "primary.main",
                       },
                     }}
                   >

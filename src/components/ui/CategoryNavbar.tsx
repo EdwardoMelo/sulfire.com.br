@@ -1,162 +1,113 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Categoria } from '@/models/Categoria';
-import { Box, Button, CircularProgress, IconButton, Typography } from '@mui/material';
-import { useNavigate, useLocation } from 'react-router-dom';
-import { blue } from '@mui/material/colors';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import React, { useEffect, useState } from "react";
+import { Box, Typography, CircularProgress, Stack } from "@mui/material";
+import { Categoria } from "@/models/Categoria";
 
-interface props { 
-  background?: string;
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+
+
+interface props{ 
+  visible : boolean
 }
-const CategoryNavbar = ({ background }: props) => {
+
+
+const CategoryNavbar = ({visible} : props) => {
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
-  const [isHovered, setIsHovered] = useState(false);
   const navigate = useNavigate();
-  const location = useLocation();
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
-  const SCROLL_AMOUNT = 250;
-
-  const handleScroll = (direction: "left" | "right") => {
-    console.log("handleScroll", direction);
-    if (scrollContainerRef.current) {
-      const currentScroll = scrollContainerRef.current.scrollLeft;
-      const newScroll =
-        direction === "left"
-          ? currentScroll - SCROLL_AMOUNT
-          : currentScroll + SCROLL_AMOUNT;
-
-      scrollContainerRef.current.scrollTo({
-        left: newScroll,
-        behavior: "smooth",
-      });
-    }
-  };
-  const arrowButtonStyle = {
-    color: "orange",
-    "&:hover": {
-      backgroundColor: "rgba(255, 255, 255, 0.2)",
-    },
-
-    "&.Mui-disabled": {
-      color: "rgba(255, 165, 0, 0.3)",
-    },
-    zIndex: 2,
-    height: "36px",
-    width: "36px",
-  };
-  const params = new URLSearchParams(location.search);
-  const selectedId = params.get("categoria");
 
   useEffect(() => {
-    const fetchCategorias = async () => {
-      try {
-        const data = await Categoria.getAll();
-        setCategorias(data);
-      } catch (err) {
-        setCategorias([]);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchCategorias();
+    Categoria.getAll()
+      .then(setCategorias)
+      .finally(() => setLoading(false));
   }, []);
 
-  const buttonStyle = {
-    "&:hover": {
-      color: "orange",
-      fontWeight: "bold",
-    },
-    color: 'black',
-    flexGrow: 1,
-    flexShrink: 0,
-    borderRadius: 2,
-    fontFamily: "Poppins",
-  };
+  if (loading) {
+    return (
+      <Box
+        sx={{
+          width: "100%",
+          display: visible ? "flex" : "none",
+          transition: "all 0.3 ease-in-out",
+          justifyContent: "center",
+          bgcolor: "#6c6c6c",
+          py: 3,
+        }}
+      >
+        <CircularProgress color="inherit" />
+      </Box>
+    );
+  }
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        gap: 2,
-        backgroundColor: "#393e46",
-        alignItems: "center",
-        maxHeight: "40px",
-        padding: 2,
-        justifyContent: "center",
-        width: "100%",
-        margin: "0 auto",
-      }}
+    <motion.div
+      initial={{ opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.4 }}
+      style={{ width: "100%" }}
     >
-      <IconButton
-        onClick={() => handleScroll("left")}
-        sx={arrowButtonStyle}
-        aria-label="Scroll Left"
+      <Box
+        sx={{
+          width: "100%",
+          bgcolor: "#3e4a61",
+          masHeight: 30,
+          padding: 2,
+          display: visible ? "flex" : "none",
+          transition: "opacity 0.4s cubic-bezier(0.4,0,0.2,1)",
+          justifyContent: "center",
+          alignItems: "center",
+          overflowX: "auto",
+        }}
       >
-        <ArrowBackIosNewIcon sx={{ color: "white" }} fontSize="small" />
-      </IconButton>
-      {loading ? (
-        <CircularProgress size={24} sx={{ color: "orange" }} />
-      ) : categorias.length === 0 ? (
-        <Typography color="text.secondary">
-          Nenhuma categoria encontrada
-        </Typography>
-      ) : (
-        <>
-          <Box
-            sx={{
-              display: "flex",
-              position: "relative",
-              gap: "2rem",
-              height: "100%",
-              width: {
-                xs: "80%",
-                sm: "90%",
-              },
-              justifyContent: "center",
-            }}
-          >
+        <Stack
+          direction="row"
+          alignItems="center"
+          sx={{ width: "100%", justifyContent: "center" }}
+        >
+          {categorias.map((categoria) => (
             <Box
-              ref={scrollContainerRef}
+              onClick={() => navigate(`/produtos?categoria=${categoria.id}`)}
+              key={categoria.id}
               sx={{
                 display: "flex",
-                gap: "2rem",
-                flexShrink: 0,
-                overflow: "hidden",
-                width: "90%",
+                flexDirection: "column",
+                alignItems: "center",
+                minWidth: 120,
+                px: 2,
+                cursor: "pointer",
+                transition: "transform 0.2s",
+                "&:hover": { transform: "scale(1.08)", color: "primary.main" },
               }}
             >
-              {categorias.map((cat) => (
-                <Button
-                  key={cat.id}
-                  onClick={() => navigate(`/produtos?categoria=${cat.id}`)}
-                  sx={{
-                    ...buttonStyle,
-                    color: selectedId === String(cat.id) ? "orange" : "white",
-                    fontWeight: selectedId === String(cat.id) ? "bold" : "normal",
-                    letterSpacing: "1px",
-                    fontFamily: "'Poppins', sans-serif",
-                  }}
-                  onMouseEnter={() => setIsHovered(true)}
-                  onMouseLeave={() => setIsHovered(false)}
-                >
-                  {cat.nome}
-                </Button>
-              ))}
+              {/* Futuro campo de imagem da categoria */}
+              {categoria.imagem && (
+                <Box sx={{ mb: 1 }}>
+                  <img
+                    src={categoria.imagem}
+                    alt={categoria.nome}
+                    style={{ width: 30, height: 30 }}
+                  />
+                </Box>
+              )}
+
+              <Typography
+                align="center"
+                sx={{
+                  color: "#fff",
+                  fontWeight: 500,
+                  fontSize: "small",
+                  fontFamily: "Poppins",
+                }}
+              >
+                {categoria.nome}
+              </Typography>
             </Box>
-          </Box>
-        </>
-      )}
-      <IconButton
-        onClick={() => handleScroll("right")}
-        sx={arrowButtonStyle}
-        aria-label="Scroll Right"
-      >
-        <ArrowForwardIosIcon sx={{ color: "white" }} fontSize="small" />
-      </IconButton>
-    </Box>
+          ))}
+        </Stack>
+      </Box>
+    </motion.div>
   );
 };
 

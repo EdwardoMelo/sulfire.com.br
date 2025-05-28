@@ -9,33 +9,93 @@ import {
   Box,
   Alert,
   CircularProgress,
+  IconButton,
 } from "@mui/material";
 import { ArrowBack } from "@mui/icons-material";
 import { Categoria } from "../models/Categoria"; // Assuming Categoria model is in this path
 import { Subcategoria, SubcategoriaDTO } from "@/models/SubCategoria";
 import SubcategoriaList from "@/components/ui/SubCategoriaList";
+import FirebaseService from "@/services/firebaseService";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CategoriaForm = () => {
   const navigate = useNavigate();
   const { id } = useParams<{ id: string }>();
 
   const [formData, setFormData] = useState({
-    nome: ""
+    nome: "",
+    imagem: "",
   });
 
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
   const [editing, setEditing] = useState<boolean>(false);
-  const [subcategorias, setSubcategorias] = useState <SubcategoriaDTO[]>([]);
+  const [subcategorias, setSubcategorias] = useState<SubcategoriaDTO[]>([]);
+  const [imagePreview, setImagePreview] = useState<string>("");
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+  const [message, setMessage] = useState<string>("");
+  const [alertColor, setAlertColor] = useState<"success" | "error" | "info">(
+    "info"
+  );
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const onSubcategoriasChange =  (updatedSubcategorias: SubcategoriaDTO[]) => { 
-      setSubcategorias(updatedSubcategorias);
-  }
+  const showFeedBack = (msg: string, color: "success" | "error" | "info") => {
+    setMessage(msg);
+    setAlertColor(color);
+    setSnackbarOpen(true);
+  };
+
+  const handleImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    setLoading(true);
+    try {
+      if (formData.imagem && formData.imagem !== "") {
+        await FirebaseService.delete(formData.imagem);
+      }
+      const fileUrl = await FirebaseService.upload(file, file.name);
+      console.log("fileUrl: ", fileUrl);
+      setFormData((prev) => ({ ...prev, imagem: fileUrl }));
+      if (fileUrl) {
+        setImagePreview(fileUrl);
+        showFeedBack("Imagem da categoria alterada com sucesso!", "success");
+      }
+    } catch (e) {
+      showFeedBack("Erro ao fazer upload da imagem", "error");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleRemoveImage = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    try {
+      if (formData.imagem && formData.imagem !== "") {
+        await FirebaseService.delete(formData.imagem);
+      }
+      setFormData((prev) => ({ ...prev, imagem: "" }));
+      setImagePreview("");
+      showFeedBack("Imagem removida com sucesso", "success");
+    } catch (e) {
+      showFeedBack("Erro ao remover imagem", "error");
+    }
+  };
+
+  const handleCloseSnackbar = (
+    _event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === "clickaway") return;
+    setSnackbarOpen(false);
+  };
+
+  const onSubcategoriasChange = (updatedSubcategorias: SubcategoriaDTO[]) => {
+    setSubcategorias(updatedSubcategorias);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -52,18 +112,23 @@ const CategoriaForm = () => {
         id: editing ? parseInt(id!) : 0,
         nome: formData.nome,
         subcategorias: [], // Subcategorias are not managed in this form directly
+        imagem: formData.imagem,
       });
+      console.log("categoria: ", categoria);
 
       if (editing) {
-        await categoria.update();  //subcategorias will be crete directily from the SubCategoriaList component when the categoria is being edited
+        await categoria.update(); //subcategorias will be crete directily rfrom the SubCategoriaList
         navigate(-1);
         return;
-      } 
-       const cretedCategoria = await categoria.create();
-       if(subcategorias.length){ 
-           await Subcategoria.createManyByCategoryId(cretedCategoria.id, subcategorias);
-       }
-       navigate(-1);
+      }
+      const cretedCategoria = await categoria.create();
+      if (subcategorias.length) {
+        await Subcategoria.createManyByCategoryId(
+          cretedCategoria.id,
+          subcategorias
+        );
+      }
+      navigate(-1);
     } catch (err) {
       console.error("Erro ao salvar categoria:", err);
       setError(
@@ -87,7 +152,13 @@ const CategoriaForm = () => {
         setLoading(true);
         try {
           const categoriaData = await Categoria.getById(parseInt(id));
-          setFormData({ nome: categoriaData.nome });
+          setFormData({
+            nome: categoriaData.nome,
+            imagem: categoriaData.imagem,
+          });
+          if (categoriaData.imagem && categoriaData.imagem !== "") {
+            setImagePreview(categoriaData.imagem);
+          }
           setSubcategorias(categoriaData.subcategorias);
         } catch (err) {
           console.error("Erro ao carregar categoria:", err);
@@ -99,15 +170,15 @@ const CategoriaForm = () => {
         }
       } else {
         setEditing(false);
-        setFormData({ nome: "" }); // Reset for new category
+        setFormData({ nome: "", imagem: "" }); // Reset for new category
       }
     };
 
     fetchCategoria();
   }, [id]);
 
-
-  if (loading && editing) { // Only show full page loader when fetching existing data
+  if (loading && editing) {
+    // Only show full page loader when fetching existing data
     return (
       <Container
         sx={{
@@ -118,7 +189,7 @@ const CategoriaForm = () => {
           minHeight: "60vh",
         }}
       >
-        <CircularProgress sx={{ color: "orange" }} />
+        <CircularProgress sx={{ color: "primary.main" }} />
       </Container>
     );
   }
@@ -164,11 +235,82 @@ const CategoriaForm = () => {
             />
           </Grid>
           <Grid item xs={12}>
-           <SubcategoriaList 
-           categoria_id={editing ? parseInt(id!) : 0}
-           subcategoriasFromParent={subcategorias}
-           onSubcategoriasChange={onSubcategoriasChange}
-           />
+            <SubcategoriaList
+              categoria_id={editing ? parseInt(id!) : 0}
+              subcategoriasFromParent={subcategorias}
+              onSubcategoriasChange={onSubcategoriasChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                mb: 2,
+              }}
+            >
+              <input
+                type="file"
+                accept="image/*"
+                style={{ display: "none" }}
+                ref={fileInputRef}
+                onChange={handleImageChange}
+                disabled={loading}
+              />
+              <Box
+                sx={{
+                  width: "100%",
+                  height: 120,
+                  border: "2px dashed #ccc",
+                  borderRadius: 2,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  cursor: "pointer",
+                  mb: 1,
+                  padding: 2,
+                  position: "relative",
+                  backgroundColor: "gray",
+                }}
+                onClick={() => fileInputRef.current?.click()}
+              >
+                {imagePreview && (
+                  <img
+                    src={imagePreview || formData.imagem}
+                    alt="Preview"
+                    style={{
+                      maxWidth: "100%",
+                      height: "100%",
+                      top: 0,
+                      left: 0,
+                      borderRadius: 8,
+                      objectFit: "contain",
+                      margin: "0 auto",
+                    }}
+                  />
+                )}
+                {!imagePreview && (
+                  <Typography color="white" variant="caption">
+                    Clique para adicionar imagem
+                  </Typography>
+                )}
+                {imagePreview && (
+                  <IconButton
+                    size="small"
+                    onClick={handleRemoveImage}
+                    sx={{
+                      position: "absolute",
+                      top: 2,
+                      right: 2,
+                      bgcolor: "rgba(255,255,255,0.7)",
+                    }}
+                  >
+                    <CloseIcon fontSize="small" />
+                  </IconButton>
+                )}
+              </Box>
+            </Box>
           </Grid>
           <Grid item xs={12}>
             <Button
@@ -176,8 +318,8 @@ const CategoriaForm = () => {
               variant="contained"
               disabled={loading}
               sx={{
-                bgcolor: "orange",
-                "&:hover": { bgcolor: "darkorange" },
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.main" },
                 color: "white",
                 textTransform: "uppercase",
                 py: 1.5,

@@ -182,11 +182,11 @@ const SubcategoriaList = ({
         <IconButton
           onClick={handleOpenAddModal}
           sx={{
-            backgroundColor: "darkorange",
+            backgroundColor: "primary.main",
             position: "absolute",
             top: 8,
             right: 8,
-            "&:hover": { backgroundColor: "orange", transform: "scale(1.1)" },
+            "&:hover": { backgroundColor: "primary.main", transform: "scale(1.1)" },
             transition: "all 0.2s ease-in-out",
             color: "white",
             zIndex: 1,

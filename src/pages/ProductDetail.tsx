@@ -70,7 +70,7 @@ const ProductDetail = () => {
           minHeight: "60vh",
         }}
       >
-        <CircularProgress sx={{ color: "orange" }} />
+        <CircularProgress sx={{ color: "primary.main" }} />
       </Container>
     );
   }
@@ -97,7 +97,6 @@ const ProductDetail = () => {
     <Box
       sx={{
         minHeight: "80vh",
-        marginTop: "10rem",
         marginBottom: "2rem",
         position: "relative",
         display: "flex",
@@ -116,8 +115,8 @@ const ProductDetail = () => {
             position: "absolute",
             top: 16,
             right: 20,
-            bgcolor: "orange",
-            "&:hover": { bgcolor: "darkorange" },
+            bgcolor: "primary.main",
+            "&:hover": { bgcolor: "primary.main" },
             color: "white",
           }}
         >
@@ -181,8 +180,8 @@ const ProductDetail = () => {
                 )
               }
               sx={{
-                bgcolor: "orange",
-                "&:hover": { bgcolor: "darkorange" },
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.main" },
                 color: "white",
                 textTransform: "uppercase",
                 mt: 2,

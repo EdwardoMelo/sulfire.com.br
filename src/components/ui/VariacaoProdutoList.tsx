@@ -166,11 +166,11 @@ const VariacaoProdutoList = ({
         <IconButton
           onClick={() => setModalOpen(true)}
           sx={{
-            backgroundColor: "darkorange",
+            backgroundColor: "primary.main",
             position: "absolute",
             right: 4,
             "&:hover": {
-              backgroundColor: "orange",
+              backgroundColor: "primary.main",
               scale: 1.2,
             },
             transition: "all 0.3s ease-in-out",

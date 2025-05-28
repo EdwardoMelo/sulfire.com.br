@@ -6,14 +6,15 @@ import { styled } from '@mui/system';
 import { Categoria } from '@/models/Categoria';
 import logo from '../../assets/logo1.png'
 const FooterContainer = styled(Box)({
-  backgroundColor: '#000000',
-  color: '#ffffff',
-  paddingTop: '3rem',
-  paddingBottom: '2rem',
+  backgroundColor: "#3e4a61",
+  borderTop: '1px solid white',
+  color: "#ffffff",
+  paddingTop: "3rem",
+  paddingBottom: "2rem",
 });
 
 const SectionTitle = styled(Typography)({
-  color: 'orange',
+  color: 'primary',
   marginBottom: '1rem',
   fontWeight: 'bold',
 });
@@ -24,7 +25,7 @@ const FooterLink = styled(Link)({
   marginBottom: '0.5rem',
   textDecoration: 'none',
   '&:hover': {
-    color: 'orange',
+    color: 'primary.main',
     textDecoration: 'underline',
   },
 });
@@ -33,7 +34,7 @@ const SocialIcon = styled(IconButton)({
   color: '#ffffff',
   marginRight: '0.5rem',
   '&:hover': {
-    color: 'orange',
+    color: 'primary.main',
     backgroundColor: 'rgba(255, 165, 0, 0.1)',
   },
 });
@@ -135,22 +136,22 @@ const Footer = () => {
           <Grid item xs={12} sm={6} md={3}>
             <SectionTitle variant="h6">Contato</SectionTitle>
             <ContactItem>
-              <LocationOn sx={{ mr: 1, color: "orange" }} />
+              <LocationOn sx={{ mr: 1, color: "primary.main" }} />
               <Typography variant="body2">
                 Rua Dario Nicolau Sturmer, 75 - Prédio 2 - Feitoria / São
                 Leopoldo/RS 93048-390
               </Typography>
             </ContactItem>
             <ContactItem>
-              <Phone sx={{ mr: 1, color: "orange" }} />
+              <Phone sx={{ mr: 1, color: "primary.main" }} />
               <Typography variant="body2">(51)35885463</Typography>
             </ContactItem>
             <ContactItem>
-              <WhatsApp sx={{ mr: 1, color: "orange" }} />
+              <WhatsApp sx={{ mr: 1, color: "primary.main" }} />
               <Typography variant="body2">(51)35885463</Typography>
             </ContactItem>
             <ContactItem>
-              <Email sx={{ mr: 1, color: "orange" }} />
+              <Email sx={{ mr: 1, color: "primary.main" }} />
               <Typography variant="body2">sulfiresistemas@gmail.com</Typography>
             </ContactItem>
           </Grid>

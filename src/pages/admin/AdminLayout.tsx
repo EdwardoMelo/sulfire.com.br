@@ -91,7 +91,7 @@ const AdminLayout = () => {
           {drawerItems.map((item) => (
             <ListItem key={item.text} disablePadding component={Link} to={item.path} style={{ textDecoration: 'none', color: 'inherit' }}>
               <ListItemButton>
-                <ListItemIcon sx={{ color: item.text === 'Dashboard' ? 'orange' : 'inherit' }}>
+                <ListItemIcon sx={{ color: item.text === 'Dashboard' ? 'primary.main' : 'inherit' }}>
                   {item.icon}
                 </ListItemIcon>
                 <ListItemText primary={item.text} />

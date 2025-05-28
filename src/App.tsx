@@ -33,6 +33,8 @@ import ProductForm from "./pages/ProductForm";
 import CategoriaForm from "./pages/CategoriaForm"; // Import CategoriaForm
 import Profile from "./pages/Profile";
 import { Instagram, WhatsApp } from "@mui/icons-material";
+import Contact from "./pages/Contact";
+import { NavProvider } from "./contexts/navContext";
 
 // Configuração do cliente de consulta
 const queryClient = new QueryClient();
@@ -41,10 +43,10 @@ const queryClient = new QueryClient();
 const theme = createTheme({
   palette: {
     primary: {
-      main: "#ff8c00", // Laranja
+      main: "#F64E29", // Laranja
     },
     secondary: {
-      main: "#000000", // Preto
+      main: "#000000", // Pret
     },
     background: {
       default: "#ffffff", // Branco
@@ -101,50 +103,60 @@ const App = () => {
 
         <BrowserRouter>
           <UserProvider>
-            <Routes>
-              {/* Rotas Públicas */}
-              <Route
-                path="/"
-                element={
-                  <Layout>
-                    <Outlet />
-                  </Layout>
-                }
-              >
-                <Route index element={<Home />} />
-                <Route path="produtos" element={<Products />} />
-                <Route path="produtos/:id" element={<ProductDetail />} />
-                <Route path="produtos/new" element={<ProductForm />} />{" "}
-                <Route path="perfil" element={<Profile />} />
-                {/* {                http://localhost:8080/perfil?token=${resetToken}?id=${userId}
+            <NavProvider>
+              <Routes>
+                {/* Rotas Públicas */}
+                <Route
+                  path="/"
+                  element={
+                    <Layout>
+                      <Outlet />
+                    </Layout>
+                  }
+                >
+                  <Route index element={<Home />} />
+                  <Route path="produtos" element={<Products />} />
+                  <Route
+                    path="produtos?search=:search"
+                    element={<ProductForm />}
+                  />
+                  <Route path="produtos/:id" element={<ProductDetail />} />
+                  <Route path="produtos/new" element={<ProductForm />} />{" "}
+                  <Route path="contato" element={<Contact />} />
+                  <Route path="perfil" element={<Profile />} />
+                  {/* {                http://localhost:8080/perfil?token=${resetToken}?id=${userId}
                 } */}
-                <Route
-                  path="perfil?token=:token&id=:id"
-                  element={<Profile />}
-                />
-                <Route path="produtos/:id/edit" element={<ProductForm />} />
-                <Route path="categorias/new" element={<CategoriaForm />} />{" "}
-                {/* Changed to relative path */}
-                <Route
-                  path="categorias/:id/edit"
-                  element={<CategoriaForm />}
-                />{" "}
-                {/* Added route for editing category */}
-                <Route path="servicos" element={<Services />} />
-                <Route path="login" element={<Login />} />
-              </Route>
+                  <Route
+                    path="perfil?token=:token&id=:id"
+                    element={<Profile />}
+                  />
+                  <Route path="produtos/:id/edit" element={<ProductForm />} />
+                  <Route
+                    path="categorias/new"
+                    element={<CategoriaForm />}
+                  />{" "}
+                  {/* Changed to relative path */}
+                  <Route
+                    path="categorias/:id/edit"
+                    element={<CategoriaForm />}
+                  />{" "}
+                  {/* Added route for editing category */}
+                  <Route path="servicos" element={<Services />} />
+                  <Route path="login" element={<Login />} />
+                </Route>
 
-              {/* Rotas de Administração */}
-              <Route path="/admin" element={<AdminLayout />}>
-                <Route index element={<AdminDashboard />} />
-                <Route path="produtos" element={<AdminProducts />} />
-                <Route path="categorias" element={<AdminCategories />} />
-                <Route path="usuarios" element={<AdminUsers />} />
-              </Route>
+                {/* Rotas de Administração */}
+                <Route path="/admin" element={<AdminLayout />}>
+                  <Route index element={<AdminDashboard />} />
+                  <Route path="produtos" element={<AdminProducts />} />
+                  <Route path="categorias" element={<AdminCategories />} />
+                  <Route path="usuarios" element={<AdminUsers />} />
+                </Route>
 
-              {/* Rota para página não encontrada */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
+                {/* Rota para página não encontrada */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </NavProvider>
           </UserProvider>
         </BrowserRouter>
         <Box
@@ -164,13 +176,12 @@ const App = () => {
         >
           <IconButton
             sx={{
-              backgroundColor: 'white',
+              backgroundColor: "white",
               height: 50,
               width: 50,
               color: "white",
               boxShadow: "0 0 10px 4px #39ff14", // Neon green shadow
               "&:hover": {
-              
                 boxShadow: "0 0 24px 8px #39ff14",
               },
             }}
@@ -180,24 +191,23 @@ const App = () => {
               )
             }
           >
-            <WhatsApp sx={{color: 'green'}}/>
+            <WhatsApp sx={{ color: "green" }} />
           </IconButton>
 
           <IconButton
             sx={{
-             backgroundColor: 'white',
+              backgroundColor: "white",
               height: 50,
               width: 50,
               color: "white",
               boxShadow: "0 0 10px 4px red", // Neon pink shadow
               "&:hover": {
-             
                 boxShadow: "0 0 24px 8px red",
               },
             }}
             onClick={() => window.open("https://www.instagram.com/sulfire_sl/")}
           >
-            <Instagram sx={{color: red[500]}}/>
+            <Instagram sx={{ color: red[500] }} />
           </IconButton>
         </Box>
       </ThemeProvider>

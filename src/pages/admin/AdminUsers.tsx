@@ -260,7 +260,7 @@ const AdminUsers = () => {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon sx={{ color: "orange", mr: 1 }} />
+                    <SearchIcon sx={{ color: "primary.main", mr: 1 }} />
                   </InputAdornment>
                 ),
                 style: { background: "#fff" },
@@ -272,8 +272,8 @@ const AdminUsers = () => {
               startIcon={<Add />}
               onClick={() => handleOpen()}
               sx={{
-                bgcolor: "orange",
-                "&:hover": { bgcolor: "darkorange" },
+                bgcolor: "primary.main",
+                "&:hover": { bgcolor: "primary.main" },
               }}
             >
               Novo Usuário
@@ -284,7 +284,7 @@ const AdminUsers = () => {
 
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
-            <CircularProgress sx={{ color: "orange" }} />
+            <CircularProgress sx={{ color: "primary.main" }} />
           </Box>
         ) : error ? (
           <Alert severity="error" sx={{ my: 2 }}>
@@ -316,7 +316,7 @@ const AdminUsers = () => {
                             label="Administrador"
                             color="primary"
                             size="small"
-                            sx={{ bgcolor: "orange", fontWeight: "bold" }}
+                            sx={{ bgcolor: "primary.main", fontWeight: "bold" }}
                           />
                         ) : (
                           <Chip
@@ -468,9 +468,9 @@ const AdminUsers = () => {
             variant="contained"
             disabled={loadingSave}
             sx={{
-              bgcolor: "orange",
+              bgcolor: "primary.main",
               "&:hover": {
-                bgcolor: "darkorange",
+                bgcolor: "primary.main",
               },
             }}
           >

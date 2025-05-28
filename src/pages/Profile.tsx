@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Usuario, UsuarioDTO } from '@/models/Usuario';
 import { useUser } from '@/contexts/userContext';
 import { Container, Box, Typography, Paper, Avatar, CircularProgress, Button, TextField, Dialog, DialogTitle, DialogContent, DialogActions, InputAdornment, IconButton } from '@mui/material';
-import { orange } from '@mui/material/colors';
 import { Edit, Visibility, VisibilityOff, Save, Cancel } from '@mui/icons-material';
 import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import Snackbar from '@mui/material/Snackbar';
@@ -121,7 +120,7 @@ const Profile = () => {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '60vh' }}>
-        <CircularProgress sx={{ color: 'orange' }} />
+        <CircularProgress sx={{ color: 'primary.main' }} />
       </Box>
     );
   }
@@ -138,7 +137,7 @@ const Profile = () => {
     <Container sx={{ py: 6, minHeight: '80vh', marginTop: '10vh' }}>
       <Paper elevation={3} sx={{ p: 4, maxWidth: 500, mx: 'auto', borderRadius: 3 }}>
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
-          <Avatar sx={{ bgcolor: orange[500], width: 72, height: 72, fontSize: 36 }}>
+          <Avatar sx={{ bgcolor: "primary.main", width: 72, height: 72, fontSize: 36 }}>
             {usuario.nome.charAt(0).toUpperCase()}
           </Avatar>
           <Typography variant="h5" sx={{ mt: 2, fontWeight: 'bold' }}>{usuario.nome}</Typography>
@@ -212,7 +211,7 @@ const Profile = () => {
                   onClick={handleSave}
                   startIcon={<Save />}
                   disabled={saving}
-                  sx={{ bgcolor: 'orange', '&:hover': { bgcolor: 'darkorange' } }}
+                  sx={{ bgcolor: 'primary.main', '&:hover': { bgcolor: 'primary.main' } }}
                 >
                   Salvar
                 </Button>
@@ -234,7 +233,7 @@ const Profile = () => {
         </Box>
         <Button
           onClick={logout}
-          sx={{ mt: 2, color: 'orange', '&:hover': { bgcolor: 'orange', color: 'white' } }}
+          sx={{ mt: 2, color: 'primary.main', '&:hover': { bgcolor: 'primary.main', color: 'white' } }}
         >
           Sair
         </Button>

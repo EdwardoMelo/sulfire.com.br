@@ -348,7 +348,7 @@ const Services = () => {
             variant="contained"
             size="large"
             sx={{
-              "&:hover": { bgcolor: "black", color: "orange", scale: 1.1 },
+              "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
               transition: "all 0.3s ease-in-out",
               color: "white",
               fontFamily: 'Poppins',

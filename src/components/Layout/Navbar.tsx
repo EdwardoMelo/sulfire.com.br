@@ -1,284 +1,342 @@
 
-import React, { useEffect, useState } from 'react';
-import { Link as RouterLink, useLocation, useNavigate } from 'react-router-dom';
-import { AppBar, Toolbar, Typography, Button, IconButton, Drawer, List, ListItem, ListItemText, Box, Container, Menu, MenuItem, Avatar } from '@mui/material';
-import { Menu as MenuIcon, ShoppingCart, Person } from '@mui/icons-material';
-import { borderBottom, Stack, styled, textTransform } from '@mui/system';
-import { orange } from '@mui/material/colors';
-import { useUser } from '@/contexts/userContext';
+import React, { useEffect, useRef, useState } from "react";
+import { Link as RouterLink, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  AppBar,
+  Toolbar,
+  Typography,
+  Button,
+  IconButton,
+  Drawer,
+  List,
+  ListItem,
+  ListItemText,
+  Box,
+  Container,
+  Menu,
+  MenuItem,
+  Avatar,
+  TextField,
+  InputBase,
+} from "@mui/material";
+import { Menu as MenuIcon, ShoppingCart, Person } from "@mui/icons-material";
+import { alpha, borderBottom, Stack, styled, textTransform } from "@mui/system";
+import { useUser } from "@/contexts/userContext";
 import WhatsAppIcon from "@mui/icons-material/WhatsApp";
 import EmailIcon from "@mui/icons-material/Email";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-import CategoryNavbar from '../ui/CategoryNavbar';
+import PreNavbar from "../ui/PreNavbar";
+import SearchIcon from "@mui/icons-material/Search";
 
-import logo from '../../assets/logo.png';
-
-
-const navActions = [
-  {
-    label: "Manda um zap!",
-    icon: <WhatsAppIcon sx={{ color: "white" }} />,
-    //colocar numero de telefone real
-    href: "https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site,gostaria de saber mais sobre os produtos e serviços da SulFire!",
-  },
-  {
-    label: "Mande-nos um email",
-    icon: <EmailIcon sx={{ color: "white" }} />,
-    href: "mailto:sulfiresistemas@gmail.com",
-  },
-  {
-    label: "Ligue pra gente",
-    icon: <LocalPhoneIcon sx={{ color: "white" }} />,
-    href: "tel:+55 5135885463",
-  },
-];
+import logo from "../../assets/logo3.png";
+import { set } from "date-fns";
+import CategoryNavbar from "../ui/CategoryNavbar";
+import { useNav } from "@/contexts/navContext";
+import AfterNavbar from "../ui/AfterNavbar";
 
 const StyledAppBar = styled(AppBar)(
   ({ isTransparent }: { isTransparent: boolean }) => ({
-    backgroundColor: 'white',
+    backgroundColor: "white",
+    display: "flex",
+    justifyContent: "center",
     position: "fixed",
     top: 0,
     zIndex: 30,
-    padding: 1,
+
     boxShadow: "none",
     transition: "background-color 0.3s ease-in-out",
   })
 );
 
-const Logo = styled(Typography)({
-  flexGrow: 1,
-  display: 'flex',
-  alignItems: 'center',
-  color: 'white',
-  fontWeight: 'bold',
+const NavButton = styled(RouterLink)({
+  color: "white",
+  margin: "0 8px",
+  padding: 4,
+  "&:hover": {
+    padding: 4,
+    color: "primary.main",
+  },
+  transition: "all 0.5s ease-in-out",
 });
 
-const NavButton = styled(RouterLink)({
-  color: 'white',
-  margin: '0 8px',
-  padding: 4,
-  '&:hover': {
-    padding: 4,
-    color: orange[500],
+const Search = styled("div")(({ theme }) => ({
+  position: "relative",
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: alpha(theme.palette.common.white, 0.15),
+  "&:hover": {
+    backgroundColor: alpha(theme.palette.common.white, 0.25),
   },
-  transition: 'all 0.5s ease-in-out',
-});
+  boxShadow: "rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;",
+  border: "1px solid lightgray",
+  marginRight: theme.spacing(2),
+  marginLeft: 0,
+  minWidth: 200,
+  [theme.breakpoints.up("sm")]: {
+    marginLeft: theme.spacing(3),
+    width: "auto",
+  },
+}));
+
+const SearchIconWrapper = styled("div")(({ theme }) => ({
+  padding: theme.spacing(0, 2),
+  height: "100%",
+  position: "absolute",
+  pointerEvents: "none",
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
+}));
+
+const StyledInputBase = styled(InputBase)(({ theme }) => ({
+  color: "inherit",
+  "& .MuiInputBase-input": {
+    padding: theme.spacing(1, 1, 1, 0),
+    // vertical padding + font size from searchIcon
+    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+    transition: "all 0.3s ease-in-out",
+    width: "100%",
+    [theme.breakpoints.up("md")]: {
+      width: "20ch",
+    },
+  },
+}));
 
 const Navbar = () => {
   const navigate = useNavigate();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isTransparent, setIsTransparent] = useState(true);
-  const location = useLocation();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isCategoryNavbarVisible, setIsCategoryNavbarVisible] = useState(true);
 
-  const {user,logout } = useUser();
-  
+  const { setNavbarHeight } = useNav();
+
+
+
+  const navRef = useRef<HTMLDivElement>(null);
+
+  const location = useLocation();
+  const {id} = useParams();
+  const { user } = useUser();
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
-  };
-
-  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
     setAnchorEl(null);
   };
 
-  const handleLogout = () => {
-    logout();
-    handleClose();
-    navigate('/login');
-  };
-
-  const handleAdminPanel = () => {
-    handleClose();
-    navigate('/admin');
+  const henadleSearch = () => {
+    if (searchTerm.trim()) {
+      navigate(`/produtos?search=${encodeURIComponent(searchTerm)}`);
+    }
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', zIndex: 30 }}>
-       <Box component="img" src={logo} alt="SulFire" />
-      <List >
-        <ListItem  component={RouterLink} to="/">
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", zIndex: 30 }}>
+      <Box component="img" src={logo} alt="SulFire" />
+      <List>
+        <ListItem component={RouterLink} to="/">
           <ListItemText primary="Home" />
         </ListItem>
-        <ListItem  component={RouterLink} to="/produtos">
+        <ListItem component={RouterLink} to="/produtos">
           <ListItemText primary="Produtos" />
         </ListItem>
-        <ListItem  component={RouterLink} to="/servicos">
+        <ListItem component={RouterLink} to="/servicos">
           <ListItemText primary="Serviços" />
         </ListItem>
         {!user && (
-          <ListItem  component={RouterLink} to="/login">
+          <ListItem component={RouterLink} to="/login">
             <ListItemText primary="Login" />
           </ListItem>
         )}
       </List>
     </Box>
   );
+  useEffect(() => {
+    const checkHeroInView = () => {
+      // Hide category navbar on specific routes
+      if (["/produtos", "/servicos"].includes(location.pathname)) {
+        setIsCategoryNavbarVisible(false);
+        return;
+      }
+      if(id){ 
+        setIsCategoryNavbarVisible(true);
+        return;
+      }
+      const hero = document.getElementById("hero-section");
+      if (!hero) {
+        setIsCategoryNavbarVisible(false);
+        return;
+      }
+
+      const rect = hero.getBoundingClientRect();
+      // Show category navbar only if hero section is mostly in view
+      const inView = rect.top < window.innerHeight && rect.bottom > 100;
+      setIsCategoryNavbarVisible(inView);
+    };
+
+    window.addEventListener("scroll", checkHeroInView);
+    window.addEventListener("resize", checkHeroInView);
+    checkHeroInView();
+
+    return () => {
+      window.removeEventListener("scroll", checkHeroInView);
+      window.removeEventListener("resize", checkHeroInView);
+    };
+  }, [location]);
+
+ //useEffect que coloca observer no navRef, ataulizando a altura no contexto a cada mudança
+  useEffect(() => {
+    if (!navRef.current) return;
+    const handleResize = () => {
+      setNavbarHeight(navRef.current.clientHeight);
+    };
+    const observer = new window.ResizeObserver(handleResize);
+    observer.observe(navRef.current);
+    handleResize();
+    return () => {
+      observer.disconnect();
+    };
+  }, [navRef]);
+
+  useEffect(() => {
+    if (navRef.current) {
+      setNavbarHeight(navRef.current.clientHeight);
+    }
+  }, [navRef]);
 
   return (
     <>
-      <StyledAppBar position="static" isTransparent={isTransparent}>
-        <CategoryNavbar background={isTransparent ? "transparent" : "black"} />
+      <StyledAppBar
+        position="static"
+        isTransparent={isTransparent}
+        ref={navRef}
+      >
+        <PreNavbar background={isTransparent ? "transparent" : "black"} />
         <Box
           sx={{
             display: "flex",
-            justifyContent: "space-around",
+            justifyContent: "center",
+            gap: 4,
             alignItems: "center",
             padding: 1,
             position: "relative",
+            marginTop: {
+              xs: "4vh",
+              md: 0,
+            },
           }}
         >
-          <Box
-            component="img"
-            src={logo}
-            alt="SulFire"
+          <Stack
+            direction="row"
+            alignItems="center"
             sx={{
-              width: 200,
-              left: 1,
-              top: 1,
-            }}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: 4,
-              maxHeight: 60,
-              padding: 2,
+              width: {
+                xs: "100%",
+                sm: "80%",
+              },
             }}
           >
-            <IconButton
-              color="inherit"
-              aria-label="open drawer"
-              edge="start"
-              onClick={handleDrawerToggle}
-              sx={{ mr: 2, display: { sm: "none" }, color: "orange" }}
-            >
-              <MenuIcon />
-            </IconButton>
-
-            <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-              {[
-                { label: "Home", to: "/" },
-                { label: "Produtos", to: "/produtos" },
-                { label: "Serviços", to: "/servicos" },
-              ].map(({ label, to }) => (
-                <NavButton
-                  sx={{
-                    fontFamily: "Poppins",
-                    fontSize: "14px",
-                    fontWeight: "bold",
-                    color: "gray",
-                  }}
-                  to={to}
-                  key={to}
-                >
-                  {label}
-                </NavButton>
-              ))}
-            </Box>
+            {/*LOGO */}
+            <Box
+              onClick={() => navigate("/")}
+              component="img"
+              src={logo}
+              alt="SulFire"
+              sx={{
+                width: 200,
+                left: 1,
+                top: 1,
+                display: {
+                  xs: "none",
+                  sm: "block",
+                  cursor: "pointer",
+                },
+              }}
+            />
+            {/*Serach e links */}
             <Box
               sx={{
-                flexGrow: 1,
-                display: { xs: "none", sm: "flex" },
-                gap: 2,
-                zIndex: 30,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 1,
+                maxHeight: 60,
+                padding: 2,
               }}
             >
-              {navActions.map((action) => (
-                <Stack
-                  component="a"
-                  href={action.href}
-                  direction="row"
-                  target="_blank"
-                  alignItems="center"
-                  gap={1}
-                  key={action.label}
-                  sx={{
-                    color: "black",
-                    "&:hover": {
-                      marginLeft: "1rem",
-                      color: "orange",
-                      transition: "all 0.3s ease-in-out",
-                    },
-                  }}
-                >
-                  <IconButton
-                    sx={{
-                      width: 40,
-                      height: 40,
+              <Search>
+                <SearchIconWrapper>
+                  <SearchIcon />
+                </SearchIconWrapper>
+                <StyledInputBase
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                    setSearchTerm(e.target.value)
+                  }
+                  placeholder="Pesquisar..."
+                  inputProps={{ "aria-label": "search" }}
+                />
+              </Search>
+              <Button
+                onClick={henadleSearch}
+                sx={{
+                  backgroundColor: "#393e46",
+                  borderRadius: 1,
+                  color: "white",
+                  fontWeight: "normal",
+                  width: 100,
+                  "&:hover": { backgroundColor: "gray" },
+                }}
+              >
+                Buscar
+              </Button>
 
-                      bgcolor: "orange",
-                      "&:hover": {
-                        bgcolor: "black",
-                        color: "orange",
-                        scale: 1.2,
-                      },
-                    }}
-                    key={action.label}
-                  >
-                    {action.icon}
-                  </IconButton>
-                  <Typography
+              <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+                {[
+                  { label: "Home", to: "/" },
+                  { label: "Produtos", to: "/produtos" },
+                  { label: "Serviços", to: "/servicos" },
+                  { label: "Contato", to: "/contato" },
+                ].map(({ label, to }) => (
+                  <NavButton
                     sx={{
                       fontFamily: "Poppins",
                       fontSize: "14px",
-                      fontWeight: "bold",
+                      fontWeight: "500",
                       color: "gray",
                     }}
+                    to={to}
+                    key={to}
                   >
-                    {action.label}
-                  </Typography>
-                </Stack>
-              ))}
+                    {label}
+                  </NavButton>
+                ))}
+              </Box>
             </Box>
-
-            {user ? (
-              <>
-                <IconButton onClick={handleMenu} color="inherit">
-                  <Avatar sx={{ width: 40, height: 40, bgcolor: "orange" }}>
-                    {user?.nome.charAt(0).toUpperCase()}
-                  </Avatar>
-                </IconButton>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={Boolean(anchorEl)}
-                  onClose={handleClose}
-                >
-                  <MenuItem
-                    onClick={handleClose}
-                    component={RouterLink}
-                    to="/perfil"
-                  >
-                    Meu Perfil
-                  </MenuItem>
-                  {user.tipo_usuario.tipo === "administrador" && (
-                    <MenuItem onClick={handleAdminPanel}>Painel Admin</MenuItem>
-                  )}
-                  <MenuItem onClick={handleLogout}>Sair</MenuItem>
-                </Menu>
-              </>
-            ) : (
-              <Button
-                color="inherit"
-                component={RouterLink}
-                to="/login"
-                startIcon={<Person />}
-                sx={{
-                  "&:hover": {
-                    bgcolor: "darkorange",
-                  },
-                  color: "black",
-                }}
-              >
-                Login
-              </Button>
-            )}
-          </Box>
+          </Stack>
         </Box>
+
+        <IconButton
+          color="inherit"
+          aria-label="open drawer"
+          edge="start"
+          onClick={handleDrawerToggle}
+          sx={{
+            mr: 2,
+            display: { sm: "none" },
+            color: "primary.main",
+            position: "absolute",
+            top: 1,
+            right: 2,
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
+        <CategoryNavbar visible={isCategoryNavbarVisible}/>
+
+        <AfterNavbar visible={isCategoryNavbarVisible}/>
       </StyledAppBar>
       <Drawer
         variant="temporary"

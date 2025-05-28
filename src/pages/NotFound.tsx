@@ -34,8 +34,8 @@ const NotFound = () => {
         to="/"
         startIcon={<Home />}
         sx={{ 
-          bgcolor: 'orange', 
-          '&:hover': { bgcolor: 'darkorange' } 
+          bgcolor: 'primary.main', 
+          '&:hover': { bgcolor: 'primary.main' } 
         }}
       >
         Voltar para o Início

@@ -95,7 +95,7 @@ const AdminDashboard = () => {
   if (loading) {
     return (
       <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '80vh' }}>
-        <CircularProgress sx={{ color: 'orange' }} />
+        <CircularProgress sx={{ color: 'primary.main' }} />
       </Box>
     );
   }
@@ -114,7 +114,7 @@ const AdminDashboard = () => {
               <StatsIcon
                 sx={{ bgcolor: "rgba(255, 165, 0, 0.1)", margin: "0 auto" }}
               >
-                <Inventory sx={{ fontSize: 40, color: "orange" }} />
+                <Inventory sx={{ fontSize: 40, color: "primary.main" }} />
               </StatsIcon>
               <Typography variant="h3" fontWeight="bold" sx={{ mb: 1 }}>
                 {totalProdutos}
@@ -179,7 +179,7 @@ const AdminDashboard = () => {
                   <React.Fragment key={produto.id}>
                     <ListItem>
                       <ListItemAvatar>
-                        <Avatar sx={{ bgcolor: "orange" }}>
+                        <Avatar sx={{ bgcolor: "primary.main" }}>
                           <LocalFireDepartment />
                         </Avatar>
                       </ListItemAvatar>
@@ -215,7 +215,7 @@ const AdminDashboard = () => {
                 >
                   <CardContent sx={{ textAlign: "center" }}>
                     <ShoppingCart
-                      sx={{ fontSize: 40, color: "orange", mb: 1 }}
+                      sx={{ fontSize: 40, color: "primary.main", mb: 1 }}
                     />
                     <Typography variant="h6" sx={{ fontWeight: "bold" }}>
                       Gerenciar Produtos

@@ -57,7 +57,6 @@ const Services = () => {
   return (
     <Box
       sx={{
-        marginTop: "12vh",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -120,7 +119,7 @@ const Services = () => {
             >
               Nossos Serviços
             </Typography>
-            <Typography variant="h6" sx={{ mb: 4, maxWidth: "800px",fontSize: '1.5rem' }}>
+            <Typography sx={{ mb: 4, maxWidth: "800px", fontSize: "1.5rem" }}>
               A SulFire oferece soluções completas em prevenção e combate a
               incêndios, desde a venda de equipamentos até treinamentos
               especializados.
@@ -129,7 +128,7 @@ const Services = () => {
               size="large"
               variant="contained"
               sx={{
-                "&:hover": { bgcolor: "black", color: "orange", scale: 1.1 },
+                "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
                 transition: "all 0.3s ease-in-out",
                 color: "white",
               }}
