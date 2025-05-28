@@ -382,8 +382,7 @@ const Home = () => {
                   >
                     A SulFire é uma empresa especializada em soluções de
                     proteção contra incêndio e comercialização de produtos para
-                    combate ao fogo. Estabelecida no Rio Grande do Sul há mais
-                    de 10 anos, temos como principal pilar de trabalho o
+                    combate ao fogo. Estabelecida no Rio Grande do Sul, temos como principal pilar de trabalho o
                     atendimento profissional e transparente, o que nos tornou
                     referência no mercado de equipamentos contra incêndio na
                     região Sul.
