@@ -26,11 +26,12 @@ import { motion } from "framer-motion";
 import teamBanner from "../assets/team-banner.jpg";
 import valueBanner from "../assets/values.jpg";
 import destaqueSprinkler from "../assets/destaque-sprinkler.jpg";
-import destaqueProtecao from "../assets/produtos/destaque-protecao.png";
 import destaqueSensor from "../assets/produtos/detaque-sensor.png";
 import Services from "../components/sections/Services";
 import Products from "./Products";
 import helpBanner from '../assets/help-banner.jpg'
+import infra from '../assets/instalacoes.png';
+
 const values = [
   {
     icon: <CheckCircle sx={{ color: "#00bbf0", mr: 2, fontSize: "2rem" }} />,
@@ -84,7 +85,7 @@ const featuredProducts = [
       "Detectores de fumaça, alarmes de incêndio e sistemas completos de detecção.",
   },
   {
-    image: destaqueProtecao,
+    image: infra,
     title: "Equipamentos de infraestrutura",
     description:
       "Tubulações, conexões, suportes e acessórios essenciais para sistemas de proteção contra incêndio.",
@@ -563,7 +564,7 @@ const Home = () => {
                     <FeatureCard>
                       <CardMedia
                         component="img"
-                        height="200"
+                        sx={{height: 200}}
                         image={product.image}
                         alt={product.title}
                       />
