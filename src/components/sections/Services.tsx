@@ -101,7 +101,8 @@ const services = [
   {
     id: 5,
     title: "Contratos",
-    description: "Gestão de equipamentos contra incêndio",
+    description:
+      "Gestão de equipamentos contra incêndio com manutenção, inspeção e controle, garantindo conformidade com as normas e funcionamento ideal em emergências.",
     icon: <Construction fontSize="large" />,
     image: instalacao,
     features: [
@@ -204,7 +205,7 @@ const Services = () => {
                   >
                     {service.title}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary" paragraph>
+                  <Typography variant="body1" color="text.secondary" textAlign="justify" paragraph>
                     {service.description}
                   </Typography>
                 </CardContent>

@@ -335,7 +335,7 @@ const Home = () => {
         </Box>
       </HeroBanner>
       {/* Products Section */}
-      <Box sx={{ width: "95%" }}>
+      <Box sx={{ width: "100%" }}>
         <Products />
       </Box>
       {/* Sobre Nós Section */}

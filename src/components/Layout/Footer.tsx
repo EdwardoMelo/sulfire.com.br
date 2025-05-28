@@ -90,7 +90,7 @@ const Footer = () => {
               component="img"
               src={logo}
               alt="SulFire"
-              sx={{ height: 60, mb: 2 }}
+              sx={{ height: 100, mb: 2 }}
             />
             <Typography variant="body2" sx={{ mb: 2 }}>
               Soluções completas para prevenção e combate a incêndios,

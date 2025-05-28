@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { 
-  Box, 
-  Container, 
-  Typography, 
-  Grid, 
-  Card, 
-  CardMedia, 
-  CardContent, 
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
   CardActions,
-  Button, 
+  Button,
   Tabs,
   Tab,
   TextField,
@@ -20,15 +20,15 @@ import {
   Pagination,
   Chip,
   IconButton,
-  Tooltip
-} from '@mui/material';
-import { Search, ShoppingCart } from '@mui/icons-material';
-import { Produto } from '../models/Produto';
-import { Categoria } from '../models/Categoria';
-import { Stack, styled } from '@mui/system';
-import { useUser } from '@/contexts/userContext';
+  Tooltip,
+} from "@mui/material";
+import { Search, ShoppingCart } from "@mui/icons-material";
+import { Produto } from "../models/Produto";
+import { Categoria } from "../models/Categoria";
+import { Stack, styled } from "@mui/system";
+import { useUser } from "@/contexts/userContext";
 import AddIcon from "@mui/icons-material/Add";
-import { motion } from 'framer-motion';
+import { motion } from "framer-motion";
 
 const ProductCard = styled(Card)(({ theme }) => ({
   cursor: "pointer",
@@ -110,6 +110,9 @@ const Products = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
+
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const { user } = useUser();
 
@@ -209,185 +212,228 @@ const Products = () => {
       <Box
         sx={{
           py: { xs: 2, md: 6 },
-          px: { xs: 2, md: 4 },
           minHeight: "80vh",
-          width: { xs: "98%", sm: "95%", md: "90%" },
+          display: "flex",
+          flexDirection: "column",
+          gap: 2,
+          width: { xs: "98%", sm: "95%", md: "100%" },
           mx: "auto",
         }}
       >
         {/* Header Section */}
-        <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          <Typography
-            variant="h4"
-            component="h1"
-            gutterBottom
-            sx={{
-              fontWeight: 700,
-              mb: 2,
-              textAlign: { xs: "center", md: "left" },
-              fontFamily: "Poppins, sans-serif",
-              color: "primary.main",
-              fontSize: { xs: 28, sm: 32, md: 38 },
-            }}
-          >
-            Produtos
-          </Typography>
-          <Typography
-            sx={{
-              fontWeight: 700,
-              mb: 2,
-              textAlign: { xs: "center", md: "left" },
-              fontFamily: "Poppins, sans-serif",
-              fontSize: { xs: 14, sm: 16, md: 18 },
-            }}
-            variant="body1"
-            color="slategray"
-            paragraph
-          >
-            Conheça nossa linha completa de equipamentos para prevenção e
-            combate a incêndios, segurança e muito mais.
-          </Typography>
-        </motion.div>
-        {/* Search and Filter Section */}
-        <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          <Box sx={{ mb: 4 }}>
-            <Grid container spacing={2} gap={2}>
-              <Grid item xs={12} md={6}>
-                <TextField
-                  fullWidth
-                  variant="outlined"
-                  placeholder="Buscar produtos..."
-                  value={searchTerm}
-                  onChange={handleSearchChange}
-                  InputProps={{
-                    startAdornment: (
-                      <InputAdornment position="start">
-                        <Search />
-                      </InputAdornment>
-                    ),
-                  }}
-                  sx={{ fontSize: { xs: 14, sm: 16 } }}
-                />
-              </Grid>
-              <Stack direction="row" spacing={2} alignItems="center">
-                {user && user.hasPermission("criar_produto") && (
-                  <Tooltip title="Adicionar novo produto">
-                    <IconButton
-                      onClick={() => navigate("/produtos/new")}
-                      sx={{
-                        backgroundColor: "primary.main",
-                        "&:hover": {
-                          backgroundColor: "primary.main",
-                          scale: 1.2,
-                        },
-                        transition: "all 0.3s ease-in-out",
-                        color: "white",
-                        fontSize: { xs: 18, sm: 22 },
-                      }}
-                    >
-                      <AddIcon />
-                    </IconButton>
-                  </Tooltip>
-                )}
-              </Stack>
-            </Grid>
-          </Box>
-        </motion.div>
-        {/* Category Tabs */}
-        <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-          <Box
-            sx={{
-              mb: 4,
-              overflow: "auto",
-              padding: 1,
-              display: "flex",
-              alignItems: "center",
-              gap: 1,
-              flexWrap: { xs: "wrap", sm: "nowrap" },
-            }}
-          >
-            {user && user.hasPermission("criar_produto") && (
-              <Tooltip title="Criar nova categoria">
-                <IconButton
-                  onClick={() => navigate("/categorias/new")}
-                  sx={{
-                    backgroundColor: "primary.main",
-                    "&:hover": {
-                      backgroundColor: "primary.main",
-                      scale: 1.2,
-                    },
-                    transition: "all 0.3s ease-in-out",
-                    color: "white",
-                    fontSize: { xs: 18, sm: 22 },
-                  }}
-                >
-                  <AddIcon />
-                </IconButton>
-              </Tooltip>
-            )}
-            <Tabs
-              value={selectedCategory}
-              onChange={handleCategoryChange}
-              variant="scrollable"
-              scrollButtons="auto"
-              allowScrollButtonsMobile
-              textColor="inherit"
+        <Box
+          sx={{
+            backgroundColor: isHome ? "transparent" : "#3e4a61",
+            px: {
+              xs: 2,
+              md: 8,
+            },
+            py: 2,
+          }}
+        >
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
+            <Typography
+              variant="h4"
+              component="h1"
+              gutterBottom
               sx={{
-                overflow: "auto",
-                borderBottom: "1px solid lightgray",
-                minWidth: 0,
-                maxWidth: "100vw",
-                ".MuiTab-root": {
-                  minWidth: { xs: 80, sm: 120 },
-                  fontSize: { xs: 12, sm: 16 },
-                  px: { xs: 1, sm: 2 },
-                },
-              }}
-              TabIndicatorProps={{
-                style: { backgroundColor: "primary.main" },
+                fontWeight: 700,
+                mb: 2,
+                textAlign: { xs: "center", md: "left" },
+                fontFamily: "Poppins, sans-serif",
+                color: isHome ? "primary.main" : "white",
+                fontSize: { xs: 28, sm: 32, md: 38 },
               }}
             >
-              <Tab
-                label="Todos"
-                value={null}
+              Produtos
+            </Typography>
+            <Typography
+              sx={{
+                fontWeight: 700,
+                mb: 2,
+                textAlign: { xs: "center", md: "left" },
+                fontFamily: "Poppins, sans-serif",
+                color: isHome ? "slategray" : "white",
+                fontSize: { xs: 14, sm: 16, md: 18 },
+              }}
+              variant="body1"
+              paragraph
+            >
+              Conheça nossa linha completa de equipamentos para prevenção e
+              combate a incêndios, segurança e muito mais.
+            </Typography>
+          </motion.div>
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
+            <Box sx={{ mb: 4 }}>
+              <Grid container spacing={2} gap={2}>
+                <Grid item xs={12} md={6}>
+                  <TextField
+                    fullWidth
+                    variant="outlined"
+                    placeholder="Buscar produtos..."
+                    value={searchTerm}
+                    onChange={handleSearchChange}
+                    sx={{
+                      color: isHome ? "#222" : "white",
+                      // ...outros estilos
+                      "& .MuiOutlinedInput-root": {
+                        "& fieldset": {
+                          borderColor: isHome ? "#222" : "white",
+                        },
+                        "&:hover fieldset": {
+                          borderColor: isHome ? "#222" : "white",
+                        },
+                        "&.Mui-focused fieldset": {
+                          borderColor: isHome ? "#222" : "white",
+                        },
+                      },
+                    }}
+                    InputProps={{
+                      sx: { color: isHome ? "#222" : "white" },
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <Search sx={{ color: isHome ? "#222" : "white" }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                  />
+                </Grid>
+                <Stack
+                  direction="row"
+                  spacing={2}
+                  alignItems="center"
+                  padding={1}
+                >
+                  {user && user.hasPermission("criar_produto") && (
+                    <Tooltip title="Adicionar novo produto">
+                      <IconButton
+                        onClick={() => navigate("/produtos/new")}
+                        sx={{
+                          backgroundColor: "primary.main",
+                          "&:hover": {
+                            backgroundColor: "primary.main",
+                            scale: 1.2,
+                          },
+                          transition: "all 0.3s ease-in-out",
+                          color: "white",
+                          fontSize: { xs: 18, sm: 22 },
+                        }}
+                      >
+                        <AddIcon />
+                      </IconButton>
+                    </Tooltip>
+                  )}
+                </Stack>
+              </Grid>
+            </Box>
+          </motion.div>
+        </Box>
+        {/* Search and Filter Section */}
+
+        {/* Category Tabs */}
+        <Box
+          sx={{
+            px: {
+              xs: 1,
+              md: 8,
+            },
+          }}
+        >
+          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
+            <Box
+              sx={{
+                mb: 4,
+                overflow: "auto",
+                padding: 1,
+                display: "flex",
+                alignItems: "center",
+                gap: 1,
+                flexWrap: { xs: "wrap", sm: "nowrap" },
+              }}
+            >
+              {user && user.hasPermission("criar_produto") && (
+                <Tooltip title="Criar nova categoria">
+                  <IconButton
+                    onClick={() => navigate("/categorias/new")}
+                    sx={{
+                      backgroundColor: "primary.main",
+                      "&:hover": {
+                        backgroundColor: "primary.main",
+                        scale: 1.2,
+                      },
+                      transition: "all 0.3s ease-in-out",
+                      color: "white",
+                      fontSize: { xs: 18, sm: 22 },
+                    }}
+                  >
+                    <AddIcon />
+                  </IconButton>
+                </Tooltip>
+              )}
+              <Tabs
+                value={selectedCategory}
+                onChange={handleCategoryChange}
+                variant="scrollable"
+                scrollButtons="auto"
+                allowScrollButtonsMobile
+                textColor="inherit"
                 sx={{
-                  "&.Mui-selected": {
-                    color: "primary.main",
-                    fontWeight: "bold",
-                  },
-                  fontSize: { xs: 12, sm: 16 },
-                  px: { xs: 1, sm: 2 },
-                }}
-              />
-              {categorias.map((categoria) => (
-                <Tab
-                  key={categoria.id}
-                  label={categoria.nome}
-                  value={categoria.id}
-                  sx={{
-                    fontFamily: "'Poppins', sans-serif",
+                  overflow: "auto",
+                  borderBottom: "1px solid lightgray",
+                  minWidth: 0,
+                  maxWidth: "100vw",
+                  ".MuiTab-root": {
+                    minWidth: { xs: 80, sm: 120 },
                     fontSize: { xs: 12, sm: 16 },
-                    letterSpacing: "0.5px",
-                    textTransform: "none",
-                    fontWeight: "bold",
+                    px: { xs: 1, sm: 2 },
+                  },
+                }}
+                TabIndicatorProps={{
+                  style: { backgroundColor: "primary.main" },
+                }}
+              >
+                <Tab
+                  label="Todos"
+                  value={null}
+                  sx={{
                     "&.Mui-selected": {
                       color: "primary.main",
                       fontWeight: "bold",
-                      transition: "all 0.3s ease-in-out",
                     },
-                    "&:hover": {
-                      color: "primary.main",
-                      fontWeight: "bold",
-                      zIndex: 30,
-                    },
+                    fontSize: { xs: 12, sm: 16 },
                     px: { xs: 1, sm: 2 },
-                    transition: "all 0.3s ease-out",
                   }}
                 />
-              ))}
-            </Tabs>
-          </Box>
-        </motion.div>
+                {categorias.map((categoria) => (
+                  <Tab
+                    key={categoria.id}
+                    label={categoria.nome}
+                    value={categoria.id}
+                    sx={{
+                      fontFamily: "'Poppins', sans-serif",
+                      fontSize: { xs: 12, sm: 16 },
+                      letterSpacing: "0.5px",
+                      textTransform: "none",
+                      fontWeight: "bold",
+                      "&.Mui-selected": {
+                        color: "primary.main",
+                        fontWeight: "bold",
+                        transition: "all 0.3s ease-in-out",
+                      },
+                      "&:hover": {
+                        color: "primary.main",
+                        fontWeight: "bold",
+                        zIndex: 30,
+                      },
+                      px: { xs: 1, sm: 2 },
+                      transition: "all 0.3s ease-out",
+                    }}
+                  />
+                ))}
+              </Tabs>
+            </Box>
+          </motion.div>
+        </Box>
         {/* Products Grid */}
         {loading ? (
           <Box sx={{ display: "flex", justifyContent: "center", my: 8 }}>
@@ -402,114 +448,123 @@ const Products = () => {
             <Typography variant="h6">Nenhum produto encontrado.</Typography>
           </Box>
         ) : (
-          <motion.div
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true, amount: 0.2 }}
-            variants={fadeIn}
+          <Box
+            sx={{
+              px: {
+                xs: 2,
+                md: 8,
+              },
+            }}
           >
-            <Grid container spacing={{ xs: 2, sm: 3 }}>
-              {currentProdutos.map((produto, idx) => (
-                <Grid item key={produto.id} xs={12} sm={6} md={4} lg={3}>
-                  <motion.div
-                    initial="hidden"
-                    whileInView="visible"
-                    viewport={{ once: true, amount: 0.2 }}
-                    variants={fadeInUp}
-                    custom={idx + 1}
-                    style={{ height: "100%" }}
-                  >
-                    <ProductCard
-                      onClick={() => navigateToProduct(produto.id)}
-                      sx={{
-                        width: { xs: "100%", sm: 260, md: 300 },
-                        minWidth: 0,
-                        mx: "auto",
-                      }}
+            <motion.div
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              variants={fadeIn}
+            >
+              <Grid container spacing={{ xs: 2, sm: 3 }}>
+                {currentProdutos.map((produto, idx) => (
+                  <Grid item key={produto.id} xs={12} sm={6} md={4} lg={3}>
+                    <motion.div
+                      initial="hidden"
+                      whileInView="visible"
+                      viewport={{ once: true, amount: 0.2 }}
+                      variants={fadeInUp}
+                      custom={idx + 1}
+                      style={{ height: "100%" }}
                     >
-                      <ProductMedia
-                        image={
-                          produto.imagem || "/images/product-placeholder.jpg"
-                        }
-                        title={produto.nome}
-                      />
-                      <ProductContent>
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ fontSize: { xs: 14, sm: 16 } }}
-                        >
-                          {produto.nome}
-                        </Typography>
-                        {categorias.map((cat) =>
-                          cat.id === produto.categoria_id ? (
-                            <StyledChip
-                              key={cat.id}
-                              label={cat.nome}
-                              size="small"
-                            />
-                          ) : null
-                        )}
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{
-                            mt: 1,
-                            mb: 2,
-                            minHeight: "3em",
-                            fontSize: { xs: 12, sm: 14 },
-                          }}
-                        >
-                          {produto.descricao?.substring(0, 80)}
-                          {produto.descricao && produto.descricao.length > 80
-                            ? "..."
-                            : ""}
-                        </Typography>
-                        {produto.marca && (
+                      <ProductCard
+                        onClick={() => navigateToProduct(produto.id)}
+                        sx={{
+                          width: { xs: "100%", sm: 260, md: 300 },
+                          minWidth: 0,
+                          mx: "auto",
+                        }}
+                      >
+                        <ProductMedia
+                          image={
+                            produto.imagem || "/images/product-placeholder.jpg"
+                          }
+                          title={produto.nome}
+                        />
+                        <ProductContent>
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ fontSize: { xs: 14, sm: 16 } }}
+                          >
+                            {produto.nome}
+                          </Typography>
+                          {categorias.map((cat) =>
+                            cat.id === produto.categoria_id ? (
+                              <StyledChip
+                                key={cat.id}
+                                label={cat.nome}
+                                size="small"
+                              />
+                            ) : null
+                          )}
+                          <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{
+                              mt: 1,
+                              mb: 2,
+                              minHeight: "3em",
+                              fontSize: { xs: 12, sm: 14 },
+                            }}
+                          >
+                            {produto.descricao?.substring(0, 80)}
+                            {produto.descricao && produto.descricao.length > 80
+                              ? "..."
+                              : ""}
+                          </Typography>
+                          {produto.marca && (
+                            <Typography
+                              variant="body2"
+                              color="text.secondary"
+                              sx={{ fontSize: { xs: 12, sm: 14 } }}
+                            >
+                              <strong>Marca:</strong> {produto.marca}
+                            </Typography>
+                          )}
                           <Typography
                             variant="body2"
                             color="text.secondary"
                             sx={{ fontSize: { xs: 12, sm: 14 } }}
                           >
-                            <strong>Marca:</strong> {produto.marca}
+                            <strong>Codigo: </strong> {produto.id}
                           </Typography>
-                        )}
-                        <Typography
-                          variant="body2"
-                          color="text.secondary"
-                          sx={{ fontSize: { xs: 12, sm: 14 } }}
-                        >
-                          <strong>Codigo: </strong> {produto.id}
-                        </Typography>
-                      </ProductContent>
-                      <CardActions>
-                        <Button
-                          size="small"
-                          variant="contained"
-                          fullWidth
-                          onClick={() => navigateToProduct(produto.id)}
-                          sx={{
-                            bgcolor: "primary.main",
-                            "&:hover": {
-                              backgroundColor: "primary.main",
-                              scale: 1.1,
-                            },
-                            maxWidth: 200,
-                            transition: "all 0.3s ease-in-out",
-                            color: "white",
-                            textTransform: "uppercase",
-                            fontSize: { xs: 12, sm: 14 },
-                          }}
-                        >
-                          Ver mais
-                        </Button>
-                      </CardActions>
-                    </ProductCard>
-                  </motion.div>
-                </Grid>
-              ))}
-            </Grid>
-          </motion.div>
+                        </ProductContent>
+                        <CardActions>
+                          <Button
+                            size="small"
+                            variant="contained"
+                            fullWidth
+                            onClick={() => navigateToProduct(produto.id)}
+                            sx={{
+                              bgcolor: "primary.main",
+                              "&:hover": {
+                                backgroundColor: "primary.main",
+                                scale: 1.1,
+                              },
+                              maxWidth: 200,
+                              transition: "all 0.3s ease-in-out",
+                              color: "white",
+                              textTransform: "uppercase",
+                              fontSize: { xs: 12, sm: 14 },
+                            }}
+                          >
+                            Ver mais
+                          </Button>
+                        </CardActions>
+                      </ProductCard>
+                    </motion.div>
+                  </Grid>
+                ))}
+              </Grid>
+            </motion.div>{" "}
+          </Box>
         )}
 
         {/* Pagination */}
