@@ -67,7 +67,7 @@ const ProductContent = styled(CardContent)(({ theme }) => ({
 }));
 
 const StyledChip = styled(Chip)(({ theme }) => ({
-  backgroundColor: "primary.main",
+  backgroundColor: "#00204a",
   color: "white",
   margin: "0 4px 4px 0",
   fontSize: 12,
