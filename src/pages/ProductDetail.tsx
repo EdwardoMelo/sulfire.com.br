@@ -272,7 +272,7 @@ const ProductDetail = () => {
             </Stack>
           </Box>
           <Divider  />
-          <Typography variant="body1" paragraph sx={{ fontWeight: "bold" }}>
+          <Typography variant="body1" sx={{ fontWeight: "bold", whiteSpace: 'pre-line' }}>
             {produto.descricao || "Sem descrição disponível para este produto."}
           </Typography>
 
