@@ -153,12 +153,29 @@ const Products = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  const filteredProdutos = produtos.filter(
-    (produto) =>
-      produto.nome.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      produto.descricao?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      produto.marca?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  // Função utilitária para normalizar strings (remove acentos, espaços e caracteres especiais)
+  const normalize = (str: string = "") =>
+    str
+      .normalize("NFD")
+      .replace(/[\u0300-\u036f]/g, "") // Remove acentos
+      .replace(/[^a-zA-Z0-9]/g, "") // Remove caracteres especiais
+      .toLowerCase();
+
+  const normalizedSearchTerm = normalize(searchTerm);
+
+  const filteredProdutos = produtos.filter((produto) => {
+    const nome = normalize(produto.nome);
+    const descricao = normalize(produto.descricao ?? "");
+    const marca = normalize(produto.marca ?? "");
+    const categoria = normalize(produto.categoria?.nome ?? "");
+
+    return (
+      nome.includes(normalizedSearchTerm) ||
+      descricao.includes(normalizedSearchTerm) ||
+      marca.includes(normalizedSearchTerm) ||
+      categoria.includes(normalizedSearchTerm)
+    );
+  });
 
   // Cálculo da paginação
   const indexOfLastItem = currentPage * itemsPerPage;

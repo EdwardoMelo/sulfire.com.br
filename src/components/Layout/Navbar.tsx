@@ -176,8 +176,7 @@ const Navbar = () => {
       }
 
       const rect = hero.getBoundingClientRect();
-      // Show category navbar only if hero section is mostly in view
-      const inView = rect.top < window.innerHeight && rect.bottom > 100;
+      const inView = rect.top < window.innerHeight && rect.bottom > 400;
       setIsCategoryNavbarVisible(inView);
     };
 
@@ -226,21 +225,18 @@ const Navbar = () => {
             gap: 4,
             alignItems: "center",
             padding: 1,
-            position: "relative",
-            marginTop: {
-              xs: "4vh",
-              md: 0,
-            },
+            position: "relative"
           }}
         >
           <Stack
             direction="row"
-            alignItems="center"
+         
             sx={{
               width: {
                 xs: "100%",
                 sm: "80%",
               },
+              flexWrap: 'wrap',
             }}
           >
             {/*LOGO */}
@@ -251,10 +247,9 @@ const Navbar = () => {
               alt="SulFire"
               sx={{
                 width: 200,
-                left: 1,
+                left: 2,
                 top: 1,
                 display: {
-                  xs: "none",
                   sm: "block",
                   cursor: "pointer",
                 },
@@ -338,9 +333,9 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
-        <CategoryNavbar visible={isCategoryNavbarVisible}/>
+        <CategoryNavbar visible={isCategoryNavbarVisible} />
 
-        <AfterNavbar visible={isCategoryNavbarVisible}/>
+        <AfterNavbar visible={isCategoryNavbarVisible} />
       </StyledAppBar>
       <Drawer
         variant="temporary"
