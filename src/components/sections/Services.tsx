@@ -234,7 +234,7 @@ const Services = () => {
         >
           Por que escolher a SulFire?
         </SectionTitle>
-        <Grid container spacing={4} rowSpacing={4}>
+        <Grid container spacing={1} rowSpacing={1}>
           {[
             [
               {
@@ -276,7 +276,7 @@ const Services = () => {
                 <Box
                   sx={{
                     borderLeft: "4px solid #00bbf0",
-                    marginBottom: "4rem",
+                    marginBottom: "1rem",
                     borderRadius: 0,
      
                     display: "flex",
