@@ -104,7 +104,10 @@ const ProductDetail = () => {
         justifyContent: "start",
         gap: 1,
         alignItems: "start",
-        padding: 4,
+        padding: { 
+          xs : 2,
+          md: 4
+        },
       }}
     >
     
@@ -194,7 +197,7 @@ const ProductDetail = () => {
         </Grid>
 
         {/* Detalhes do Produto */}
-        <Grid item xs={12} md={6} sx={{ padding: 2 }}>
+        <Grid item xs={12} md={6} sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
           <Box
             sx={{
               mb: 2,
@@ -202,8 +205,7 @@ const ProductDetail = () => {
               flexDirection: "column",
               justifyContent: "start",
               height: "100%",
-              gap: 1,
-              paddingX: 4,
+              gap: 1
             }}
           >
             {produto.nome && (
@@ -269,8 +271,7 @@ const ProductDetail = () => {
               </List>
             </Stack>
           </Box>
-
-          <Divider sx={{ my: 3 }} />
+          <Divider  />
           <Typography variant="body1" paragraph sx={{ fontWeight: "bold" }}>
             {produto.descricao || "Sem descrição disponível para este produto."}
           </Typography>

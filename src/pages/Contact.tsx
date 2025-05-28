@@ -77,7 +77,10 @@ const showFeedBack = (msg: string, color: 'success' | 'error' | 'info') => {
       </HeroBanner>
       <Container
         maxWidth="sm"
-        sx={{ mt: -8, mb: 8, position: "relative", zIndex: 2 }}
+        sx={{ mt: { 
+          xs: 0,
+          md: -8
+        }, mb: 8, position: "relative", zIndex: 2 }}
       >
         <Paper elevation={4} sx={{ p: 4, borderRadius: 3 }}>
           <form onSubmit={handleSubmit}>

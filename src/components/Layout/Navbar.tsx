@@ -147,6 +147,9 @@ const Navbar = () => {
         <ListItem component={RouterLink} to="/servicos">
           <ListItemText primary="Serviços" />
         </ListItem>
+        <ListItem component={RouterLink} to="/contato">
+          <ListItemText primary="Contato" />
+        </ListItem>
         {!user && (
           <ListItem component={RouterLink} to="/login">
             <ListItemText primary="Login" />
