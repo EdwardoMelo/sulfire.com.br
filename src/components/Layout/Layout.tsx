@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Footer from './Footer';
 import { Box, CssBaseline } from '@mui/material';
 import { useNav } from '@/contexts/navContext';
+import { useLocation } from 'react-router-dom';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -11,6 +12,9 @@ interface LayoutProps {
 
 const Layout: React.FC<LayoutProps> = ({ children }) => {
   const { navbarHeight } = useNav();
+
+  const location = useLocation();
+
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
@@ -20,10 +24,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
         component="main"
         sx={{
           flexGrow: 1,
-          marginTop: {
-            xs: `calc(${navbarHeight  + 50}px)`,
-            md: `calc(${navbarHeight}px )`,
-          },
+          marginTop: `calc(${navbarHeight}px )`,   
         }}
       >
         {children}
