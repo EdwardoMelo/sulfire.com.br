@@ -382,10 +382,10 @@ const Home = () => {
                   >
                     A SulFire é uma empresa especializada em soluções de
                     proteção contra incêndio e comercialização de produtos para
-                    combate ao fogo. Estabelecida no Rio Grande do Sul, temos como principal pilar de trabalho o
-                    atendimento profissional e transparente, o que nos tornou
-                    referência no mercado de equipamentos contra incêndio na
-                    região Sul.
+                    combate ao fogo. Estabelecida no Rio Grande do Sul, temos
+                    como principal pilar de trabalho o atendimento profissional
+                    e transparente, o que nos tornou referência no mercado de
+                    equipamentos contra incêndio na região Sul.
                   </Typography>
                 </Box>
               </motion.div>
@@ -563,7 +563,7 @@ const Home = () => {
                     <FeatureCard>
                       <CardMedia
                         component="img"
-                        sx={{height: 200}}
+                        sx={{ height: 200 }}
                         image={product.image}
                         alt={product.title}
                       />
@@ -617,7 +617,11 @@ const Home = () => {
                 component={RouterLink}
                 to="/produtos"
                 sx={{
-                  "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
+                  "&:hover": {
+                    bgcolor: "black",
+                    color: "primary.main",
+                    scale: 1.1,
+                  },
                   transition: "all 0.3s ease-in-out",
                   color: "white",
                 }}
@@ -707,7 +711,7 @@ const Home = () => {
                   <Button
                     variant="contained"
                     component="a"
-                    href="https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site,gostaria de saber mais sobre os produtos e serviços da SulFire!"
+                    href="https://api.whatsapp.com/send?phone=5194475384&text=Oi, vim pelo site,gostaria de saber mais sobre os produtos e serviços da SulFire!"
                     target="_blank"
                     size="large"
                     sx={{
@@ -734,7 +738,7 @@ const Home = () => {
                       },
                     }}
                   >
-                    +55 5135885463
+                    +55 51994475384
                   </Button>
                 </Stack>
               </motion.div>

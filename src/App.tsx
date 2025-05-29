@@ -187,7 +187,7 @@ const App = () => {
             }}
             onClick={() =>
               window.open(
-                "https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site,gostaria de saber mais sobre os produtos e serviços da SulFire!"
+                "https://api.whatsapp.com/send?phone=5194475384&text=Oi, vim pelo site,gostaria de saber mais sobre os produtos e serviços da SulFire!"
               )
             }
           >

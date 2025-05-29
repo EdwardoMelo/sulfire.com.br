@@ -104,13 +104,12 @@ const ProductDetail = () => {
         justifyContent: "start",
         gap: 1,
         alignItems: "start",
-        padding: { 
-          xs : 2,
-          md: 4
+        padding: {
+          xs: 2,
+          md: 4,
         },
       }}
     >
-    
       {user && user.hasPermission("editar_produto") && (
         <Tooltip
           title="Editar produto"
@@ -179,7 +178,7 @@ const ProductDetail = () => {
               color="primary"
               onClick={() =>
                 window.open(
-                  `https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site,gostaria de saber mais sobre o produto ${produto.nome}, código ${produto.id}!`
+                  `https://api.whatsapp.com/send?phone=5194475384&text=Oi, vim pelo site,gostaria de saber mais sobre o produto ${produto.nome}, código ${produto.id}!`
                 )
               }
               sx={{
@@ -197,7 +196,12 @@ const ProductDetail = () => {
         </Grid>
 
         {/* Detalhes do Produto */}
-        <Grid item xs={12} md={6} sx={{ padding: 2, display: 'flex', flexDirection: 'column', gap: 2 }}>
+        <Grid
+          item
+          xs={12}
+          md={6}
+          sx={{ padding: 2, display: "flex", flexDirection: "column", gap: 2 }}
+        >
           <Box
             sx={{
               mb: 2,
@@ -205,7 +209,7 @@ const ProductDetail = () => {
               flexDirection: "column",
               justifyContent: "start",
               height: "100%",
-              gap: 1
+              gap: 1,
             }}
           >
             {produto.nome && (
@@ -271,8 +275,11 @@ const ProductDetail = () => {
               </List>
             </Stack>
           </Box>
-          <Divider  />
-          <Typography variant="body1" sx={{ fontWeight: "bold", whiteSpace: 'pre-line' }}>
+          <Divider />
+          <Typography
+            variant="body1"
+            sx={{ fontWeight: "bold", whiteSpace: "pre-line" }}
+          >
             {produto.descricao || "Sem descrição disponível para este produto."}
           </Typography>
 

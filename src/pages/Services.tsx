@@ -128,13 +128,17 @@ const Services = () => {
               size="large"
               variant="contained"
               sx={{
-                "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
+                "&:hover": {
+                  bgcolor: "black",
+                  color: "primary.main",
+                  scale: 1.1,
+                },
                 transition: "all 0.3s ease-in-out",
                 color: "white",
               }}
               onClick={() =>
                 window.open(
-                  "https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site, gostaria de fazer um orçamento!"
+                  "https://api.whatsapp.com/send?phone=5194475384&text=Oi, vim pelo site, gostaria de fazer um orçamento!"
                 )
               }
             >

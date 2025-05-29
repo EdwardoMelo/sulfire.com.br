@@ -205,7 +205,12 @@ const Services = () => {
                   >
                     {service.title}
                   </Typography>
-                  <Typography variant="body1" color="text.secondary" textAlign="justify" paragraph>
+                  <Typography
+                    variant="body1"
+                    color="text.secondary"
+                    textAlign="justify"
+                    paragraph
+                  >
                     {service.description}
                   </Typography>
                 </CardContent>
@@ -278,7 +283,7 @@ const Services = () => {
                     borderLeft: "4px solid #00bbf0",
                     marginBottom: "1rem",
                     borderRadius: 0,
-     
+
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "center",
@@ -320,12 +325,12 @@ const Services = () => {
               mb: 2,
               mt: 1,
               fontFamily: "Poppins, sans-serif",
-                color: "#393e46",
+              color: "#393e46",
             }}
           >
             Precisa de algum de nossos serviços?
           </Typography>
-          <Typography variant="body1" sx={{ mb: 3, fontFamily: 'Poppins' }} >
+          <Typography variant="body1" sx={{ mb: 3, fontFamily: "Poppins" }}>
             Entre em contato com nossa equipe para um orçamento personalizado e
             sem compromisso.
           </Typography>
@@ -333,14 +338,18 @@ const Services = () => {
             variant="contained"
             size="large"
             sx={{
-              "&:hover": { bgcolor: "black", color: "primary.main", scale: 1.1 },
+              "&:hover": {
+                bgcolor: "black",
+                color: "primary.main",
+                scale: 1.1,
+              },
               transition: "all 0.3s ease-in-out",
               color: "white",
-              fontFamily: 'Poppins',
+              fontFamily: "Poppins",
             }}
             onClick={() =>
               window.open(
-                "https://api.whatsapp.com/send?phone=5135885463&text=Oi, vim pelo site, gostaria de fazer um orçamento!"
+                "https://api.whatsapp.com/send?phone=5194475384&text=Oi, vim pelo site, gostaria de fazer um orçamento!"
               )
             }
           >

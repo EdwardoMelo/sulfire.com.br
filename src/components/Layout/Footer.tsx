@@ -60,7 +60,7 @@ const socialLinks = [
   {
     icon: <WhatsApp />,
     label: "whatsapp",
-    href: "https://api.whatsapp.com/send?phone=5135885463&text=Olá, vim pelo site da Sulfire!",
+    href: "https://api.whatsapp.com/send?phone=5194475384&text=Olá, vim pelo site da Sulfire!",
   },
 ];
 
@@ -145,11 +145,11 @@ const Footer = () => {
             </ContactItem>
             <ContactItem>
               <Phone sx={{ mr: 1, color: "primary.main" }} />
-              <Typography variant="body2">(51)35885463</Typography>
+              <Typography variant="body2">51 99447-5384</Typography>
             </ContactItem>
             <ContactItem>
               <WhatsApp sx={{ mr: 1, color: "primary.main" }} />
-              <Typography variant="body2">(51)35885463</Typography>
+              <Typography variant="body2">51 99447-5384</Typography>
             </ContactItem>
             <ContactItem>
               <Email sx={{ mr: 1, color: "primary.main" }} />

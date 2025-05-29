@@ -108,7 +108,7 @@ const PreNavbar = ({ background }: props) => {
           <Button
             onClick={() =>
               window.open(
-                "https://api.whatsapp.com/send?phone=5135885463&text=Olá, vim pelo site da Sulfire!",
+                "https://api.whatsapp.com/send?phone=5194475384&text=Olá, vim pelo site da Sulfire!",
                 "_blank"
               )
             }
