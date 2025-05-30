@@ -53,7 +53,7 @@ const CategoryNavbar = ({visible} : props) => {
           xs: 'start',
           sm :'center'
         },
-        overflowX: 'scroll',
+        overflowX: 'auto',
         alignItems: "center"
       }}
     >
