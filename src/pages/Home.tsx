@@ -25,12 +25,16 @@ import heroBanner from "../assets/hero-banner.jpg";
 import { motion } from "framer-motion";
 import teamBanner from "../assets/team-banner.jpg";
 import valueBanner from "../assets/values.jpg";
-import destaqueSprinkler from "../assets/destaque-sprinkler.jpg";
-import destaqueSensor from "../assets/produtos/detaque-sensor.png";
 import Services from "../components/sections/Services";
 import Products from "./Products";
 import helpBanner from '../assets/help-banner.jpg'
-import infra from '../assets/instalacoes.png';
+
+import sistemas_hidraulicos from '../assets/ranhuradas.png';
+import laudos from '../assets/Laudos..png';
+import alarmes from '../assets/Alarm-en54.png';
+
+
+
 
 const values = [
   {
@@ -73,23 +77,23 @@ const values = [
 
 const featuredProducts = [
   {
-    image: destaqueSprinkler,
-    title: "Sprinklers",
+    image: laudos,
+    title: "Laudos, Projetos e Inspeções",
     description:
-      "Dispositivos automáticos de combate a incêndio com alta eficiência.",
+      "Laudos, projetos e inspeções com total conformidade às normas técnicas e exigências dos principais órgãos reguladores.",
   },
   {
-    image: destaqueSensor,
-    title: "Sistemas de Alarme",
+    image: alarmes,
+    title: "Alarmes de Incêndio",
     description:
-      "Detectores de fumaça, alarmes de incêndio e sistemas completos de detecção.",
+      "Soluções em alarme de incêndio com tecnologia de ponta e certificação internacional, fornecidas por líderes globais do setor.",
   },
   {
-    image: infra,
-    title: "Equipamentos de infraestrutura",
+    image: sistemas_hidraulicos,
+    title: "Sistemas Hidráulicos Certificados",
     description:
-      "Tubulações, conexões, suportes e acessórios essenciais para sistemas de proteção contra incêndio.",
-  },
+      "Equipamentos e sistemas hidráulicos certificados UL/FM, reconhecidos mundialmente pela excelência em segurança contra incêndio.",
+  }
 ];
 
 const HeroBanner = styled(Box)({
@@ -143,7 +147,7 @@ const ValueCard = styled(Box)({
   alignItems: "center",
   marginBottom: "1rem",
   borderRadius: "8px",
-  padding: "16px",
+  padding: 8,
 });
 
 const HeaderBackground = ( ) => { 
@@ -445,6 +449,7 @@ const Home = () => {
           py: 8,
           position: "relative",
           display: "flex",
+          minHeight: '60vh',
           width: "100%",
         }}
       >
@@ -460,8 +465,7 @@ const Home = () => {
             width: "100%",
             height: "100%",
             zIndex: 0,
-            opacity: 0.5, // Slightly transparent background image
-            filter: "grayScale(0.8)", // Optional: grayscale effect
+            opacity: 1, // Slightly transparent background image
           }}
         />
         <Box
@@ -473,7 +477,7 @@ const Home = () => {
             width: "100%",
             height: "100%",
             zIndex: 10,
-            background: "rgba(0, 0, 0, 0.7)", // Linear gradient with transparency
+            background: "rgba(0, 0, 0, 0.6)", // Linear gradient with transparency
           }}
         />
         <Container sx={{ zIndex: 20 }}>
@@ -498,9 +502,9 @@ const Home = () => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
           >
-            <Grid container spacing={3}>
+            <Grid container >
               {values.map((value, index) => (
-                <Grid item xs={12} md={6} key={index}>
+                <Grid item xs={12} md={6} key={index} >
                   <motion.div variants={listItemFadeInUpVariants}>
                     <ValueCard>
                       {value.icon}
@@ -571,6 +575,7 @@ const Home = () => {
                         <Typography
                           sx={{
                             fontWeight: 700,
+                           
                             mb: 2,
                             mt: 1,
                             fontFamily: "Poppins, sans-serif",

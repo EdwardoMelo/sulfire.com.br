@@ -42,7 +42,6 @@ const StyledAppBar = styled(AppBar)(
     position: "fixed",
     top: 0,
     zIndex: 30,
-
     boxShadow: "none",
     transition: "background-color 0.3s ease-in-out",
   })
@@ -333,6 +332,7 @@ const Navbar = () => {
         >
           <MenuIcon />
         </IconButton>
+
         <CategoryNavbar visible={isCategoryNavbarVisible} />
 
         <AfterNavbar visible={isCategoryNavbarVisible} />

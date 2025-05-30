@@ -240,65 +240,64 @@ const Services = () => {
           Por que escolher a SulFire?
         </SectionTitle>
         <Grid container spacing={1} rowSpacing={1}>
-          {[
+            {[
             [
               {
-                title: "Qualidade garantida",
-                description:
-                  "Utilizamos apenas produtos certificados e que atendem rigorosamente às normas técnicas.",
+              title: "Atendimento Técnico Especializado",
+              description:
+                "Equipe capacitada para orientar projetos, instalações e adequações às normas da ABNT e do Corpo de Bombeiros.",
               },
               {
-                title: "Expertise técnica",
-                description:
-                  "Nossa equipe é formada por profissionais especializados e constantemente atualizados.",
+              title: "Mix Completo e Certificado de Produtos",
+              description:
+                "Extintores, hidrantes, bombas, painéis, iluminação, placas e acessórios — tudo com certificações como Inmetro, ABNT e UL/FM.",
               },
               {
-                title: "Soluções personalizadas",
-                description:
-                  "Desenvolvemos projetos adaptados às necessidades específicas de cada cliente.",
+              title: "Assessoria em Projetos e Vistorias",
+              description:
+                "Acompanhamento técnico para aprovação de sistemas junto ao Corpo de Bombeiros, incluindo ajustes e atualizações.",
               },
             ],
             [
               {
-                title: "Atendimento ágil",
-                description:
-                  "Equipe pronta para atender emergências e demandas com rapidez e eficiência.",
+              title: "Emissão de Laudos e Testes Técnicos",
+              description:
+                "Ensaio de mangueiras, testes de bomba, estanqueidade, SPDA e outros com documentação técnica.",
               },
               {
-                title: "Compromisso com segurança",
-                description:
-                  "Priorizamos a proteção da vida acima de tudo em nossas soluções.",
+              title: "Parcerias Estratégicas com Instaladoras",
+              description:
+                "Programa de fidelidade, comissões e apoio técnico comercial para gerar mais negócios em conjunto.",
               },
               {
-                title: "Manutenção preventiva",
-                description:
-                  "Planos de manutenção que evitam problemas futuros e garantem a durabilidade dos equipamentos.",
+              title: "Atendimento Comercial Proativo",
+              description:
+                "Geração rápida de orçamentos, follow-up consultivo e suporte para fechar negócios de alto valor.",
               },
             ],
-          ].map((column, colIdx) => (
+            ].map((column, colIdx) => (
             <Grid item xs={12} md={6} key={colIdx}>
               {column.map((item, idx) => (
-                <Box
-                  sx={{
-                    borderLeft: "4px solid #00bbf0",
-                    marginBottom: "1rem",
-                    borderRadius: 0,
-
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    padding: 4,
-                    boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px;",
-                  }}
-                  key={idx}
-                >
-                  <Typography variant="body1" paragraph>
-                    <strong>{item.title}:</strong> {item.description}
-                  </Typography>
-                </Box>
+              <Box
+                sx={{
+                borderLeft: "4px solid #00bbf0",
+                marginBottom: "1rem",
+                borderRadius: 0,
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                padding: 4,
+                boxShadow: "rgba(0, 0, 0, 0.16) 0px 1px 4px;",
+                }}
+                key={idx}
+              >
+                <Typography variant="body1" paragraph>
+                <strong>{item.title}:</strong> {item.description}
+                </Typography>
+              </Box>
               ))}
             </Grid>
-          ))}
+            ))}
         </Grid>
       </motion.div>
 
