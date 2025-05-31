@@ -731,7 +731,7 @@ const Home = () => {
                   >
                     Entre em Contato
                   </Button>
-                  <Button
+                  {/* <Button
                     variant="outlined"
                     size="large"
                     sx={{
@@ -744,7 +744,7 @@ const Home = () => {
                     }}
                   >
                     +55 51994475384
-                  </Button>
+                  </Button> */}
                 </Stack>
               </motion.div>
             </Grid>
