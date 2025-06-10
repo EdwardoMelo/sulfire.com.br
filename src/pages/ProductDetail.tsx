@@ -18,7 +18,7 @@ import {
   Tooltip,
   IconButton,
 } from "@mui/material";
-import { ShoppingCart, ArrowBack } from "@mui/icons-material";
+import { ShoppingCart, ArrowBack, Close } from "@mui/icons-material";
 import { Produto } from "../models/Produto";
 import { blue } from "@mui/material/colors";
 import { useUser } from "@/contexts/userContext";
@@ -31,6 +31,7 @@ const ProductDetail = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [quantidade, setQuantidade] = useState<number>(1);
+  const [productImageOpen, setProductImageOpen] = useState<boolean>(false);
 
   const {user} = useUser();
 
@@ -99,15 +100,19 @@ const ProductDetail = () => {
         minHeight: "80vh",
         marginBottom: "2rem",
         position: "relative",
+        width: "100%",
         display: "flex",
         flexDirection: "column",
         justifyContent: "start",
         gap: 1,
         alignItems: "start",
-        padding: {
+        paddingX: {
           xs: 2,
-          md: 4,
+          md: 12,
+          lg: 14,
+          xl: 16,
         },
+        paddingY: 2,
       }}
     >
       {user && user.hasPermission("editar_produto") && (
@@ -159,16 +164,35 @@ const ProductDetail = () => {
       <Grid container spacing={1}>
         {/* Imagem do Produto */}
         <Grid item xs={12} md={6}>
-          <Box sx={{ overflow: "hidden", borderRadius: 2, padding: 2 }}>
+          <Box
+            onClick={() => setProductImageOpen(true)}
+            sx={{
+              overflow: "hidden",
+              borderRadius: 2,
+              padding: 2,
+              display: "flex",
+              flexDirection: "column",
+              gap: 2,
+            }}
+          >
             <Box
               component="img"
               src={produto.imagem || "/images/product-placeholder.jpg"}
               alt={produto.nome}
               sx={{
                 width: "100%",
-                height: "auto",
-                objectFit: "cover",
-                maxHeight: "500px",
+                objectFit: "contain",
+                maxHeight: { 
+                  md: '350px',
+                  lg: '400px',
+              
+                },
+                padding: 1,
+                cursor: "pointer",
+                "&:hover": {
+                  transform: "scale(1.1)",
+                  transition: "all 0.3s ease-in-out",
+                },
                 borderRadius: 2,
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px;",
               }}
@@ -217,7 +241,7 @@ const ProductDetail = () => {
                 label={produto.id}
                 size="small"
                 sx={{
-                  backgroundColor: blue[900],
+                  backgroundColor: "#222831",
                   color: "white",
                   mb: 1,
                   width: 50,
@@ -231,7 +255,7 @@ const ProductDetail = () => {
               gutterBottom
               sx={{
                 fontWeight: "bold",
-                color: "darkblue",
+                color: "#222831",
                 textTransform: "uppercase",
               }}
             >
@@ -296,6 +320,57 @@ const ProductDetail = () => {
           </Box>
         </Grid>
       </Grid>
+      {/* Modal Imagem do produto */}
+      {productImageOpen && (
+        <Box
+          sx={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            width: "100vw",
+            height: "100vh",
+            bgcolor: "rgba(0,0,0,0.85)",
+            zIndex: 2000,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            cursor: "zoom-out",
+          }}
+          onClick={() => setProductImageOpen(false)}
+        >
+          <Box
+            component="img"
+            src={produto.imagem || "/images/product-placeholder.jpg"}
+            alt={produto.nome}
+            sx={{
+              maxWidth: "95vw",
+              maxHeight: "95vh",
+              objectFit: "contain",
+              boxShadow: 24,
+              borderRadius: 2,
+              background: "#fff",
+            }}
+            onClick={(e) => e.stopPropagation()}
+          />
+          <IconButton
+            onClick={() => setProductImageOpen(false)}
+            sx={{
+              position: "fixed",
+              top: 24,
+              right: 32,
+              bgcolor: "white",
+              "&:hover": {
+                transform: "scale(1.1)",
+                transition: "all 0.3s ease-in-out",
+                backgroundColor: 'white'
+              },
+              zIndex: 2100,
+            }}
+          >
+            <Close sx={{ color: "red" }} />
+          </IconButton>
+        </Box>
+      )}
     </Box>
   );
 };

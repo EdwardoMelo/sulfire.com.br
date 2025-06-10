@@ -30,7 +30,7 @@ import Products from "./Products";
 import helpBanner from '../assets/help-banner.jpg'
 
 import sistemas_hidraulicos from '../assets/ranhuradas.png';
-import laudos from '../assets/Laudos..png';
+import laudos from '../assets/Laudos.png';
 import alarmes from '../assets/Alarm-en54.png';
 
 
@@ -567,7 +567,7 @@ const Home = () => {
                     <FeatureCard>
                       <CardMedia
                         component="img"
-                        sx={{ height: 200 }}
+                        sx={{ height: 200, objectFit: 'contain' }}
                         image={product.image}
                         alt={product.title}
                       />

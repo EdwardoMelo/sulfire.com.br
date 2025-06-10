@@ -165,7 +165,7 @@ const Navbar = () => {
         return;
       }
       if(id){ 
-        setIsCategoryNavbarVisible(true);
+        setIsCategoryNavbarVisible(false);
         return;
       }
       const hero = document.getElementById("hero-section");

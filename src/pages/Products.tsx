@@ -48,12 +48,7 @@ const ProductCard = styled(Card)(({ theme }) => ({
   },
 }));
 
-const ProductMedia = styled(CardMedia)(({ theme }) => ({
-  paddingTop: "75%",
-  [theme.breakpoints.down("sm")]: {
-    paddingTop: "60%",
-  },
-}));
+
 
 const ProductContent = styled(CardContent)(({ theme }) => ({
   flexGrow: 1,
@@ -498,12 +493,12 @@ const Products = () => {
                           mx: "auto",
                         }}
                       >
-                        <ProductMedia
-                          image={
-                            produto.imagem || "/images/product-placeholder.jpg"
-                          }
+                        <CardMedia
+                          component="img"
                           title={produto.nome}
-                        />
+                          image={produto.imagem}
+                          sx={{ height: 200, objectFit: "contain" }}
+                        ></CardMedia>
                         <ProductContent>
                           <Typography
                             variant="body2"
