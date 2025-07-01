@@ -29,6 +29,7 @@ import { Stack, styled } from "@mui/system";
 import { useUser } from "@/contexts/userContext";
 import AddIcon from "@mui/icons-material/Add";
 import { motion } from "framer-motion";
+import { useProduct } from '@/contexts/productContext';
 
 const ProductCard = styled(Card)(({ theme }) => ({
   cursor: "pointer",
@@ -89,20 +90,28 @@ const fadeIn = {
   hidden: { opacity: 0 },
   visible: { opacity: 1, transition: { duration: 0.7 } },
 };
+const shuffleArray = (array: Produto[]) => {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+}; 
 
 const Products = () => {
+  const {
+    selectedCategory,
+    setSelectedCategory,
+    currentPage,
+    setCurrentPage,
+    searchTerm,
+  } = useProduct();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const [produtos, setProdutos] = useState<Produto[]>([]);
   const [categorias, setCategorias] = useState<Categoria[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-  const [searchTerm, setSearchTerm] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<number | null>(
-    searchParams.get("categoria")
-      ? parseInt(searchParams.get("categoria")!)
-      : null
-  );
-  const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(12);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
 
@@ -128,10 +137,6 @@ const Products = () => {
     }
   };
 
-  const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-    setCurrentPage(1);
-  };
 
   const navigateToProduct = (id: number) => {
     navigate(`/produtos/${id}`);
@@ -172,6 +177,8 @@ const Products = () => {
     );
   });
 
+
+
   // Cálculo da paginação
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
@@ -193,6 +200,8 @@ const Products = () => {
           produtosData = await Produto.getByCategoria(selectedCategory);
         } else {
           produtosData = await Produto.getAll();
+          // Shuffle products when no category is selected
+          produtosData = shuffleArray(produtosData);
         }
         setProdutos(produtosData);
       } catch (err) {
@@ -211,13 +220,7 @@ const Products = () => {
     }
   }, [searchParams]);
 
-  //useEffect que extrai o search da url e colcoa no searchTerm
-  useEffect(() => {
-    const search = searchParams.get("search");
-    if (search) {
-      setSearchTerm(search);
-    }
-  }, []);
+
 
   return (
     <motion.div initial="hidden" animate="visible" variants={fadeIn}>
@@ -274,42 +277,14 @@ const Products = () => {
               Conheça nossa linha completa de equipamentos para prevenção e
               combate a incêndios, segurança e muito mais.
             </Typography>
+
+
+
           </motion.div>
           <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
             <Box sx={{ mb: 4 }}>
               <Grid container spacing={2} gap={2}>
-                <Grid item xs={12} md={6}>
-                  <TextField
-                    fullWidth
-                    variant="outlined"
-                    placeholder="Buscar produtos..."
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    sx={{
-                      color: isHome ? "#222" : "white",
-                      // ...outros estilos
-                      "& .MuiOutlinedInput-root": {
-                        "& fieldset": {
-                          borderColor: isHome ? "#222" : "white",
-                        },
-                        "&:hover fieldset": {
-                          borderColor: isHome ? "#222" : "white",
-                        },
-                        "&.Mui-focused fieldset": {
-                          borderColor: isHome ? "#222" : "white",
-                        },
-                      },
-                    }}
-                    InputProps={{
-                      sx: { color: isHome ? "#222" : "white" },
-                      startAdornment: (
-                        <InputAdornment position="start">
-                          <Search sx={{ color: isHome ? "#222" : "white" }} />
-                        </InputAdornment>
-                      ),
-                    }}
-                  />
-                </Grid>
+               
                 <Stack
                   direction="row"
                   spacing={2}

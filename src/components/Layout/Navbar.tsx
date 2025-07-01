@@ -33,6 +33,7 @@ import { set } from "date-fns";
 import CategoryNavbar from "../ui/CategoryNavbar";
 import { useNav } from "@/contexts/navContext";
 import AfterNavbar from "../ui/AfterNavbar";
+import { useProduct } from "@/contexts/productContext";
 
 const StyledAppBar = styled(AppBar)(
   ({ isTransparent }: { isTransparent: boolean }) => ({
@@ -103,10 +104,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar = () => {
   const navigate = useNavigate();
+  const {searchTerm, setSearchTerm } = useProduct();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isTransparent, setIsTransparent] = useState(true);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [LocalSearchTerm, setLocalSearchTerm] = useState("");
   const [isCategoryNavbarVisible, setIsCategoryNavbarVisible] = useState(true);
 
   const { setNavbarHeight } = useNav();
@@ -127,11 +130,29 @@ const Navbar = () => {
     setAnchorEl(null);
   };
 
-  const henadleSearch = () => {
-    if (searchTerm.trim()) {
-      navigate(`/produtos?search=${encodeURIComponent(searchTerm)}`);
+  const handleSearch = () => {
+    if (LocalSearchTerm.trim()) {
+      setSearchTerm(LocalSearchTerm);
+      if(location.pathname !== '/produtos'){ 
+        navigate(`/produtos`);
+        return;
+      }
     }
   };
+
+  useEffect(( ) => { 
+      console.log('useEffect searchterm')
+      setLocalSearchTerm(searchTerm);
+  }, [searchTerm]);
+
+  useEffect(( ) =>  {
+    console.log('useEffect LocalSearchTerm')
+    if(LocalSearchTerm === ''){ 
+      setSearchTerm(LocalSearchTerm);
+    }
+  }, [LocalSearchTerm]);
+
+  
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: "center", zIndex: 30 }}>
@@ -271,14 +292,14 @@ const Navbar = () => {
                 </SearchIconWrapper>
                 <StyledInputBase
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                    setSearchTerm(e.target.value)
+                    setLocalSearchTerm(e.target.value)
                   }
                   placeholder="Pesquisar..."
                   inputProps={{ "aria-label": "search" }}
                 />
               </Search>
               <Button
-                onClick={henadleSearch}
+                onClick={handleSearch}
                 sx={{
                   backgroundColor: "#393e46",
                   borderRadius: 1,

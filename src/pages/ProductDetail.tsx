@@ -52,8 +52,8 @@ const ProductDetail = () => {
         setLoading(false);
       }
     };
-
     fetchProduto();
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }, [id]);
 
   const handleGoBack = () => {

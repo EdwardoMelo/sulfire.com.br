@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Button, Container, Typography, TextField, Paper, Alert, Snackbar, CircularProgress } from '@mui/material'
 import { styled } from '@mui/system'
 import heroBanner from '../assets/hero-banner.jpg'
@@ -59,6 +59,10 @@ const showFeedBack = (msg: string, color: 'success' | 'error' | 'info') => {
       setLoading(false);
     }
   };
+
+  useEffect(() =>  {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  }, []); 
 
   return (
     <Box>

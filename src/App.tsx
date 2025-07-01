@@ -35,6 +35,7 @@ import Profile from "./pages/Profile";
 import { Instagram, WhatsApp } from "@mui/icons-material";
 import Contact from "./pages/Contact";
 import { NavProvider } from "./contexts/navContext";
+import { ProductProvider } from "./contexts/productContext";
 
 // Configuração do cliente de consulta
 const queryClient = new QueryClient();
@@ -104,58 +105,60 @@ const App = () => {
         <BrowserRouter>
           <UserProvider>
             <NavProvider>
-              <Routes>
-                {/* Rotas Públicas */}
-                <Route
-                  path="/"
-                  element={
-                    <Layout>
-                      <Outlet />
-                    </Layout>
-                  }
-                >
-                  <Route index element={<Home />} />
-                  <Route path="produtos" element={<Products />} />
+              <ProductProvider>
+                <Routes>
+                  {/* Rotas Públicas */}
                   <Route
-                    path="produtos?search=:search"
-                    element={<ProductForm />}
-                  />
-                  <Route path="produtos/:id" element={<ProductDetail />} />
-                  <Route path="produtos/new" element={<ProductForm />} />{" "}
-                  <Route path="contato" element={<Contact />} />
-                  <Route path="perfil" element={<Profile />} />
-                  {/* {                http://localhost:8080/perfil?token=${resetToken}?id=${userId}
+                    path="/"
+                    element={
+                      <Layout>
+                        <Outlet />
+                      </Layout>
+                    }
+                  >
+                    <Route index element={<Home />} />
+                    <Route path="produtos" element={<Products />} />
+                    <Route
+                      path="produtos?search=:search"
+                      element={<ProductForm />}
+                    />
+                    <Route path="produtos/:id" element={<ProductDetail />} />
+                    <Route path="produtos/new" element={<ProductForm />} />{" "}
+                    <Route path="contato" element={<Contact />} />
+                    <Route path="perfil" element={<Profile />} />
+                    {/* {                http://localhost:8080/perfil?token=${resetToken}?id=${userId}
                 } */}
-                  <Route
-                    path="perfil?token=:token&id=:id"
-                    element={<Profile />}
-                  />
-                  <Route path="produtos/:id/edit" element={<ProductForm />} />
-                  <Route
-                    path="categorias/new"
-                    element={<CategoriaForm />}
-                  />{" "}
-                  {/* Changed to relative path */}
-                  <Route
-                    path="categorias/:id/edit"
-                    element={<CategoriaForm />}
-                  />{" "}
-                  {/* Added route for editing category */}
-                  <Route path="servicos" element={<Services />} />
-                  <Route path="login" element={<Login />} />
-                </Route>
+                    <Route
+                      path="perfil?token=:token&id=:id"
+                      element={<Profile />}
+                    />
+                    <Route path="produtos/:id/edit" element={<ProductForm />} />
+                    <Route
+                      path="categorias/new"
+                      element={<CategoriaForm />}
+                    />{" "}
+                    {/* Changed to relative path */}
+                    <Route
+                      path="categorias/:id/edit"
+                      element={<CategoriaForm />}
+                    />{" "}
+                    {/* Added route for editing category */}
+                    <Route path="servicos" element={<Services />} />
+                    <Route path="login" element={<Login />} />
+                  </Route>
 
-                {/* Rotas de Administração */}
-                <Route path="/admin" element={<AdminLayout />}>
-                  <Route index element={<AdminDashboard />} />
-                  <Route path="produtos" element={<AdminProducts />} />
-                  <Route path="categorias" element={<AdminCategories />} />
-                  <Route path="usuarios" element={<AdminUsers />} />
-                </Route>
+                  {/* Rotas de Administração */}
+                  <Route path="/admin" element={<AdminLayout />}>
+                    <Route index element={<AdminDashboard />} />
+                    <Route path="produtos" element={<AdminProducts />} />
+                    <Route path="categorias" element={<AdminCategories />} />
+                    <Route path="usuarios" element={<AdminUsers />} />
+                  </Route>
 
-                {/* Rota para página não encontrada */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                  {/* Rota para página não encontrada */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </ProductProvider>
             </NavProvider>
           </UserProvider>
         </BrowserRouter>
