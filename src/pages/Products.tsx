@@ -226,7 +226,7 @@ const Products = () => {
     <motion.div initial="hidden" animate="visible" variants={fadeIn}>
       <Box
         sx={{
-          py: { xs: 2, md: 6 },
+          py: { xs: 2 },
           minHeight: "80vh",
           display: "flex",
           flexDirection: "column",
@@ -238,82 +238,64 @@ const Products = () => {
         {/* Header Section */}
         <Box
           sx={{
-            backgroundColor: isHome ? "transparent" : "#3e4a61",
+            backgroundColor: "transparent",
+            display: 'flex',
+            alignItems:'center',
+            gap: 2,
             px: {
               xs: 2,
               md: 8,
             },
-            py: 2,
           }}
         >
           <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-            <Typography
-              variant="h4"
-              component="h1"
-              gutterBottom
-              sx={{
-                fontWeight: 700,
-                mb: 2,
-                textAlign: { xs: "center", md: "left" },
-                fontFamily: "Poppins, sans-serif",
-                color: isHome ? "primary.main" : "white",
-                fontSize: { xs: 28, sm: 32, md: 38 },
-              }}
-            >
-              Produtos
-            </Typography>
-            <Typography
-              sx={{
-                fontWeight: 700,
-                mb: 2,
-                textAlign: { xs: "center", md: "left" },
-                fontFamily: "Poppins, sans-serif",
-                color: isHome ? "slategray" : "white",
-                fontSize: { xs: 14, sm: 16, md: 18 },
-              }}
-              variant="body1"
-              paragraph
-            >
-              Conheça nossa linha completa de equipamentos para prevenção e
-              combate a incêndios, segurança e muito mais.
-            </Typography>
-
-
-
-          </motion.div>
-          <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
-            <Box sx={{ mb: 4 }}>
-              <Grid container spacing={2} gap={2}>
-               
-                <Stack
-                  direction="row"
-                  spacing={2}
-                  alignItems="center"
-                  padding={1}
-                >
-                  {user && user.hasPermission("criar_produto") && (
-                    <Tooltip title="Adicionar novo produto">
-                      <IconButton
-                        onClick={() => navigate("/produtos/new")}
-                        sx={{
-                          backgroundColor: "primary.main",
-                          "&:hover": {
-                            backgroundColor: "primary.main",
-                            scale: 1.2,
-                          },
-                          transition: "all 0.3s ease-in-out",
-                          color: "white",
-                          fontSize: { xs: 18, sm: 22 },
-                        }}
-                      >
-                        <AddIcon />
-                      </IconButton>
-                    </Tooltip>
-                  )}
-                </Stack>
-              </Grid>
-            </Box>
-          </motion.div>
+                    <Typography
+                      
+                      gutterBottom
+                      sx={{
+                        fontWeight: 700,
+                        mb: 1,
+                        textAlign: { xs: "center", md: "left" },
+                        fontFamily: "Poppins, sans-serif",
+                        color: isHome ? "primary.main" : "primary.main",
+                        fontSize: { xs: 28, sm: 32, md: 38 },
+                      }}
+                    >
+                      Produtos
+                    </Typography>
+                  </motion.div>
+                  <motion.div initial="hidden" animate="visible" variants={fadeInUp}>
+                    <Box>
+                      <Grid container spacing={2} gap={2}>
+                        <Stack
+                          direction="row"
+                          spacing={2}
+                          alignItems="center"
+                          padding={1}
+                        >
+                          {user && user.hasPermission("criar_produto") && (
+                            <Tooltip title="Adicionar novo produto">
+                              <IconButton
+                                onClick={() => navigate("/produtos/new")}
+                                sx={{
+                                  backgroundColor: "primary.main",
+                                  "&:hover": {
+                                    backgroundColor: "primary.main",
+                                    scale: 1.2,
+                                  },
+                                  transition: "all 0.3s ease-in-out",
+                                  color: "white",
+                                  fontSize: { xs: 18, sm: 22 },
+                                }}
+                              >
+                                <AddIcon />
+                              </IconButton>
+                            </Tooltip>
+                          )}
+                        </Stack>
+                      </Grid>
+                    </Box>
+                  </motion.div>
         </Box>
         {/* Search and Filter Section */}
 
