@@ -13,39 +13,12 @@ Fully responsive and multi-page layout
 Clone the repository:
 
 bash
-Copiar
-Editar
+Copy
+Edit
 git clone https://github.com/seu-usuario/sulfire-site.git
 cd sulfire-site
 Install dependencies:
 
-bash
-Copiar
-Editar
-npm install
-Configure Firebase Storage:
-
-Create a project on Firebase Console
-
-Obtain your Firebase config credentials
-
-Create a .env file at the root of the project and fill it in as follows:
-
-ini
-Copiar
-Editar
-VITE_FIREBASE_API_KEY=...
-VITE_FIREBASE_AUTH_DOMAIN=...
-VITE_FIREBASE_PROJECT_ID=...
-VITE_FIREBASE_STORAGE_BUCKET=...
-VITE_FIREBASE_MESSAGING_SENDER_ID=...
-VITE_FIREBASE_APP_ID=...
-Start the development server:
-
-bash
-Copiar
-Editar
-npm run dev
 🌟 Features
 Multi-page structure for organized content presentation
 
