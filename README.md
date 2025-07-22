@@ -1,50 +1,55 @@
-# Sulfire - Site Institucional
+🔥 Sulfire – Institutional Website
+This is the repository for Sulfire’s institutional website, designed with a focus on product presentation and modern UI/UX principles. The project leverages the following technologies:
 
-Este é o repositório do site institucional da empresa Sulfire, desenvolvido com foco em apresentação de produtos. O projeto utiliza as seguintes tecnologias:
+Vite – For fast development and build processes
 
-- [Vite](https://vitejs.dev/) para build e desenvolvimento rápido
-- [Material UI](https://mui.com/) para componentes visuais modernos
-- [Framer Motion](https://www.framer.com/motion/) para animações fluidas
-- Multipágina e responsivo
+Material UI – For clean, responsive, and accessible UI components
 
-## Como rodar o projeto
+Framer Motion – For smooth, high-performance animations
 
-1. **Clone o repositório:**
-    ```bash
-    git clone https://github.com/seu-usuario/sulfire-site.git
-    cd sulfire-site
-    ```
+Fully responsive and multi-page layout
 
-2. **Instale as dependências:**
-    ```bash
-    npm install
-    ```
+🚀 Getting Started
+Clone the repository:
 
-3. **Configure o Firebase Storage:**
-    - Crie um projeto no [Firebase](https://console.firebase.google.com/).
-    - Obtenha as credenciais de acesso (configuração do Firebase).
-    - Crie um arquivo `.env` na raiz do projeto e adicione suas credenciais conforme o modelo abaixo:
+bash
+Copiar
+Editar
+git clone https://github.com/seu-usuario/sulfire-site.git
+cd sulfire-site
+Install dependencies:
 
-      ```
-      VITE_FIREBASE_API_KEY=...
-      VITE_FIREBASE_AUTH_DOMAIN=...
-      VITE_FIREBASE_PROJECT_ID=...
-      VITE_FIREBASE_STORAGE_BUCKET=...
-      VITE_FIREBASE_MESSAGING_SENDER_ID=...
-      VITE_FIREBASE_APP_ID=...
-      ```
+bash
+Copiar
+Editar
+npm install
+Configure Firebase Storage:
 
-4. **Inicie o projeto:**
-    ```bash
-    npm run dev
-    ```
+Create a project on Firebase Console
 
-## Funcionalidades
+Obtain your Firebase config credentials
 
-- **Multipágina:** Estrutura organizada para diferentes seções da empresa/produtos.
-- **Responsivo:** Layout adaptável para dispositivos móveis e desktops.
-- **Fácil deploy:** Pronto para ser hospedado em qualquer serviço de static hosting.
+Create a .env file at the root of the project and fill it in as follows:
 
+ini
+Copiar
+Editar
+VITE_FIREBASE_API_KEY=...
+VITE_FIREBASE_AUTH_DOMAIN=...
+VITE_FIREBASE_PROJECT_ID=...
+VITE_FIREBASE_STORAGE_BUCKET=...
+VITE_FIREBASE_MESSAGING_SENDER_ID=...
+VITE_FIREBASE_APP_ID=...
+Start the development server:
 
+bash
+Copiar
+Editar
+npm run dev
+🌟 Features
+Multi-page structure for organized content presentation
 
-Feito com ❤️ por Sulfire.
+Responsive design that adapts to all screen sizes
+
+Easy deployment to any static hosting platform
+
